@@ -19,6 +19,8 @@ public class Juego extends Activity {
     private TextView tvPregunta;
     private Button boton1,boton2,boton3,boton4;
     private ArrayList<Enunciado> enunciados;
+    private ArrayList<String> preguntas;
+    private ArrayList<String> respuestas;
     private final String categoriaJuego = "futbol";
     //se necesitara aqui tener el test generado ya
 
@@ -28,7 +30,6 @@ public class Juego extends Activity {
         setContentView(R.layout.activity_juego);
 
         PYRDataSource datos= new PYRDataSource(this);
-        //datos.getDatabase().execSQL("select * from preguntas;");
 
         /* Asignamos los ids a los elementos */
         tvPregunta = (TextView) findViewById(R.id.tvPregunta);
@@ -39,8 +40,11 @@ public class Juego extends Activity {
 
         /****** CREAR EL TEST ******/
 
-        enunciados = datos.obtenerEnunciados(categoriaJuego);
-
+        //enunciados = datos.obtenerEnunciados(categoriaJuego);
+        preguntas = new ArrayList<String>();
+        respuestas = new ArrayList<String>();
+        preguntas = datos.obtenerPreguntas(categoriaJuego);
+        respuestas = datos.obtenerRespuestas("club", "texto");
 
 
 
@@ -50,12 +54,12 @@ public class Juego extends Activity {
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
-        tvPregunta.setText(enunciados.get(0).getPreguntaEnunciado());
-        boton1.setText(enunciados.get(0).getRespuestasEnunciados().get(0));
-        boton2.setText(enunciados.get(0).getRespuestasEnunciados().get(1));
-        boton3.setText(enunciados.get(0).getRespuestasEnunciados().get(2));
-        boton4.setText(enunciados.get(0).getRespuestasEnunciados().get(3));
-        respuestaCorrecta=1; //numero del boton de la respuesta correcta (cambia en cada pregunta)
+        tvPregunta.setText(preguntas.get(0));
+        boton1.setText(respuestas.get(0));
+        boton2.setText(respuestas.get(1));
+        boton3.setText(respuestas.get(2));
+        boton4.setText(respuestas.get(3));
+        respuestaCorrecta=1; //numero del boton de la respuesta correcta (cambia en cada pregunta)*/
 
         /* variables de control de las preguntas */
         aciertos=0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
