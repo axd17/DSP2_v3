@@ -22,7 +22,7 @@ public class Juego extends Activity {
     private TextView tvPregunta, tvImagen;
     private Button boton1,boton2,boton3,boton4,botonA1,botonA2;
     private ArrayList<Enunciado> enunciados;
-    private int contador;
+    private int contador = 0;
     private final String categoriaJuego = "futbol";
     //se necesitara aqui tener el test generado ya
 
@@ -81,7 +81,6 @@ public class Juego extends Activity {
         /* variables de control de las preguntas */
         aciertos = 0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
         nPreguntas = enunciados.size(); //numero de preguntas totales (soloc ambia al generar el test
-        contador = 0;
         /* Poner una variable que diga cual es la respuesta correcta */
 
         mostrarEnunciado(boton1);
@@ -111,10 +110,10 @@ public class Juego extends Activity {
     }
 
     public void mostrarEnunciado(Button boton){
-        contador++;
         boton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
+                contador++;
                 if(respuestaCorrecta==1){
                     /* sonido correcto */
                     aciertos++;
@@ -133,14 +132,14 @@ public class Juego extends Activity {
                 }else{
                     Enunciado e=enunciados.get(contador);
                     if(e instanceof EnunciadoTexto) {
-                        tvPregunta.setText(enunciados.get(0).getPreguntaEnunciado());
+                        tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
-                        String correcta = enunciados.get(0).getRespuestaCorrecta();
+                        String correcta = enunciados.get(contador).getRespuestaCorrecta();
                         ArrayList<String> incorrectas = new ArrayList<>();
                         incorrectas.add(correcta);
-                        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(0));
-                        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(1));
-                        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(2));
+                        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
+                        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(1));
+                        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(2));
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
                         for(int i=0; i<incorrectas.size(); i++){
                             if(incorrectas.get(i).matches(correcta))

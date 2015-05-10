@@ -209,18 +209,6 @@ public class PYRDataSource {
     }
 
     public ArrayList<Respuesta> obtenerRespuestas(String tipo, String clase, String id_correcta){
-        //Sacamos el id del tipo
-        /*String tip="";
-        String columns_tip[] = new String[]{ColumnTipos.ID_TIPOS, ColumnTipos.CONTENIDO_TIPOS};
-        String selection_tip = ColumnTipos.CONTENIDO_TIPOS + " = ? ";//WHERE contenido = ?
-        String selectionArgs_tip[] = new String[]{tipo};
-        Cursor c_tip = database.query(TIPOS_TABLE_NAME, columns_tip, selection_tip, selectionArgs_tip, null, null, null);
-        if(c_tip.moveToNext())
-            tip = c_tip.getString(c_tip.getColumnIndex(ColumnTipos.ID_TIPOS));
-        else{
-            System.out.println("No hay respuestas para el tipo: "+tipo);
-            return null;
-        }*/
         //Sacamos el id de la clase
         String clas="";
         String columns_clas[] = new String[]{ColumnClases.ID_CLASES, ColumnClases.CONTENIDO_CLASES};
@@ -281,19 +269,24 @@ public class PYRDataSource {
                 System.out.println("Error en la clase de la respuesta");
                 return null;
             }
-            ArrayList<Respuesta> respuestas = new ArrayList<>();
-            System.out.println("Tipo: "+p.getTipo()+", Clase: "+clase+", Id respuesta: "+p.getIdRespuesta());
-            respuestas = obtenerRespuestas(p.getTipo(), clase, p.getIdRespuesta());
-            Collections.shuffle(respuestas, new Random(System.nanoTime()));
             ArrayList<Respuesta> r = new ArrayList<>();
-            r.add(respuestas.get(0));
-            r.add(respuestas.get(1));
-            r.add(respuestas.get(2));
-            if(p instanceof PreguntaTexto)
+            System.out.println("Tipo: "+p.getTipo()+", Clase: "+clase+", Id respuesta: "+p.getIdRespuesta());
+            //Comprobar tipos
+            if(p.getTipo().matches("1")){
+                r = generarRespuestasAleatorias(p.getIdRespuesta());
+            }else {
+                ArrayList<Respuesta> respuestas = new ArrayList<>();
+                respuestas = obtenerRespuestas(p.getTipo(), clase, p.getIdRespuesta());
+                Collections.shuffle(respuestas, new Random(System.nanoTime()));
+                r.add(respuestas.get(0));
+                r.add(respuestas.get(1));
+                r.add(respuestas.get(2));
+            }
+            if (p instanceof PreguntaTexto)
                 enunciados.add(fTexto.crearEnunciado(p, r));
-            else if(p instanceof PreguntaAudio)
+            else if (p instanceof PreguntaAudio)
                 enunciados.add(fAudio.crearEnunciado(p, r));
-            else if(p instanceof PreguntaGrafica)
+            else if (p instanceof PreguntaGrafica)
                 enunciados.add(fGrafica.crearEnunciado(p, r));
             else {
                 System.out.println("Error en la creacion del enunciado");
@@ -302,5 +295,32 @@ public class PYRDataSource {
         }
         Collections.shuffle(enunciados, new Random(System.nanoTime()));
         return enunciados;
+    }
+
+    private ArrayList<Respuesta> generarRespuestasAleatorias(String id_r){
+        //Sacamos el contenido del id de la respuesta
+        ArrayList<Respuesta> r = new ArrayList<>();
+        String resp="";
+        String columns[] = new String[]{ColumnRespuestas.ID_RESPUESTAS, ColumnRespuestas.CONTENIDO_RESPUESTAS};
+        String selection = ColumnRespuestas.ID_RESPUESTAS + " = ? ";//WHERE id_respuesta = ?
+        String selectionArgs[] = new String[]{id_r};
+        Cursor c = database.query(RESPUESTAS_TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+        if(c.moveToNext())
+            resp = c.getString(c.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS));
+        else{
+            System.out.println("Error en el contenido de la respuesta");
+            return null;
+        }
+        int valor=Integer.valueOf(resp);
+        for(int i=0; i<3; i++) {
+            String numerito="";
+            do {
+                Random rand = new Random();
+                int randomNum = rand.nextInt((valor - valor / 2) + 1) + 1;
+                numerito = Integer.toString(randomNum + valor / 2);
+            }while(r.contains(numerito));
+            r.add(new RespuestaTexto(numerito, "0"));
+        }
+        return r;
     }
 }
