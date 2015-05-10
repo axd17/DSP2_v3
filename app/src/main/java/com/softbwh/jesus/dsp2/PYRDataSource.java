@@ -109,7 +109,7 @@ public class PYRDataSource {
             "INSERT INTO "+PREGUNTAS_TABLE_NAME+" VALUES" +
                     "(1,'¿Cuántas Champions Leagues posee el Real Madrid?','',1,1,1,1)," +
                     "(2,'¿Qué club ganó La Liga BBVA en 2014?','',4,1,2,1)," +
-                    "(3,'¿Qué club ganó la Copa del Rey de Fúbol en 2014?','',2,1,2,1)";
+                    "(3,'¿Qué club ganó la Copa del Rey de Fútbol en 2014?','',2,1,2,1)";
 
     public static final String INSERT_RESPUESTAS_SCRIPT =
             "INSERT INTO "+RESPUESTAS_TABLE_NAME+" VALUES" +

@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Random;
 
 
 public class Juego extends Activity {
@@ -19,6 +22,7 @@ public class Juego extends Activity {
     private TextView tvPregunta, tvImagen;
     private Button boton1,boton2,boton3,boton4,botonA1,botonA2;
     private ArrayList<Enunciado> enunciados;
+    private int contador;
     private final String categoriaJuego = "futbol";
     //se necesitara aqui tener el test generado ya
 
@@ -27,7 +31,7 @@ public class Juego extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
 
-        PYRDataSource datos= new PYRDataSource(this);
+        PYRDataSource datos = new PYRDataSource(this);
 
         /* Asignamos los ids a los elementos */
         tvPregunta = (TextView) findViewById(R.id.tvPregunta);
@@ -36,8 +40,8 @@ public class Juego extends Activity {
         boton2 = (Button) findViewById(R.id.button2);
         boton3 = (Button) findViewById(R.id.button3);
         boton4 = (Button) findViewById(R.id.button4);
-        botonA1= (Button) findViewById(R.id.buttonA1);
-        botonA2= (Button) findViewById(R.id.buttonA2);
+        botonA1 = (Button) findViewById(R.id.buttonA1);
+        botonA2 = (Button) findViewById(R.id.buttonA2);
 
         /****** CREAR EL TEST ******/
 
@@ -46,143 +50,44 @@ public class Juego extends Activity {
         enunciados = datos.obtenerEnunciados(categoriaJuego);
 
 
-        int a=R.drawable.esp;
+        //int a = R.drawable.esp;
         /****** CREAR EL TEST ******/
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
-        tvPregunta.setText(preguntas.get(0));
-        tvImagen.setBackgroundResource(a);
-        boton1.setText(respuestas.get(0));
-        boton2.setText(respuestas.get(1));
-        boton3.setText(respuestas.get(2));
-        boton4.setText(respuestas.get(3));
+        tvPregunta.setText(enunciados.get(0).getPreguntaEnunciado());
+        tvImagen.setBackgroundResource(0);
+        String correcta = enunciados.get(0).getRespuestaCorrecta();
+        ArrayList<String> incorrectas = new ArrayList<>();
+        incorrectas.add(correcta);
+        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(0));
+        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(1));
+        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(2));
+        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+        for (int i = 0; i < incorrectas.size(); i++) {
+            if (incorrectas.get(i).matches(correcta))
+                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+        }
+        boton1.setText(incorrectas.get(0));
+        boton2.setText(incorrectas.get(1));
+        boton3.setText(incorrectas.get(2));
+        boton4.setText(incorrectas.get(3));
         //botonA1.setVisibility(View.INVISIBLE);
         botonA1.setEnabled(true);
         //botonA2.setVisibility(View.INVISIBLE);
         botonA2.setEnabled(true);
         //boton1.setVisibility(View.INVISIBLE);
-        respuestaCorrecta=1; //numero del boton de la respuesta correcta (cambia en cada pregunta)*/
 
         /* variables de control de las preguntas */
-        aciertos=0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
-        nPreguntas=10; //numero de preguntas totales (soloc ambia al generar el test
+        aciertos = 0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
+        nPreguntas = enunciados.size(); //numero de preguntas totales (soloc ambia al generar el test
+        contador = 0;
         /* Poner una variable que diga cual es la respuesta correcta */
 
-        boton1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if(respuestaCorrecta==1){
-                    /* sonido correcto */
-                    aciertos++;
-                    /* variable de aciertos++ */
-                }else{
-                    /* sonido mal */
-                }
-
-                /*comprobamos si es la ultima pregunta */
-                if(nPreguntas==1){
-                    /* ir a FinalJuego */
-
-                    Intent i = new Intent(Juego.this, FinalJuego.class);
-                    i.putExtra("aciertos", aciertos);
-                    startActivity(i);
-                }else{
-                    /* siguiente pregunta */
-                    /* comprobar si la siguiente pregunta es grafica audio o texto */
-                    tvPregunta.setText("¿Cual es la capital de España?");
-                    boton1.setText("Madrid");
-                    boton2.setText("Barcelona");
-                    boton3.setText("Santander");
-                    boton4.setText("Granada");
-                }
-                nPreguntas--;
-            }
-        });
-
-        boton2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if(respuestaCorrecta==2){
-                    /* sonido correcto */
-                    aciertos++;
-                }else{
-                    /* sonido mal */
-                }
-
-                /*comprobamos si es la ultima pregunta */
-                if(nPreguntas==1){
-                    /* ir a FinalJuego */
-
-                    Intent i = new Intent(Juego.this, FinalJuego.class);
-                    i.putExtra("aciertos", aciertos);
-                    startActivity(i);
-                }else{
-                    /* siguiente pregunta */
-                    tvPregunta.setText("¿Cual es la capital de España?");
-                    boton1.setText("Madrid");
-                    boton2.setText("Barcelona");
-                    boton3.setText("Santander");
-                    boton4.setText("Granada");
-                }
-                nPreguntas--;
-            }
-        });
-
-        boton3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if(respuestaCorrecta==3){
-                    /* sonido correcto */
-                    aciertos++;
-                }else{
-                    /* sonido mal */
-                }
-
-                /*comprobamos si es la ultima pregunta */
-                if(nPreguntas==1){
-                    /* ir a FinalJuego */
-
-                    Intent i = new Intent(Juego.this, FinalJuego.class);
-                    i.putExtra("aciertos", aciertos);
-                    startActivity(i);
-                }else{
-                    /* siguiente pregunta */
-                    tvPregunta.setText("¿Cual es la capital de España?");
-                    boton1.setText("Madrid");
-                    boton2.setText("Barcelona");
-                    boton3.setText("Santander");
-                    boton4.setText("Granada");
-                }
-                nPreguntas--;
-            }
-        });
-
-        boton4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if(respuestaCorrecta==4){
-                    /* sonido correcto */
-                    aciertos++;
-                }else{
-                    /* sonido mal*/
-                }
-
-                /*comprobamos si es la ultima pregunta */
-                if(nPreguntas==1){
-                    /* ir a FinalJuego */
-
-                    Intent i = new Intent(Juego.this, FinalJuego.class);
-                    i.putExtra("aciertos", aciertos);
-                    startActivity(i);
-                }else{
-                    /* siguiente pregunta */
-                    tvPregunta.setText("¿Cual es la capital de España?");
-                    boton1.setText("Madrid");
-                    boton2.setText("Barcelona");
-                    boton3.setText("Santander");
-                    boton4.setText("Granada");
-                }
-                nPreguntas--;
-            }
-        });
-
+        mostrarEnunciado(boton1);
+        mostrarEnunciado(boton2);
+        mostrarEnunciado(boton3);
+        mostrarEnunciado(boton4);
     }
 
 
@@ -203,5 +108,52 @@ public class Juego extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void mostrarEnunciado(Button boton){
+        contador++;
+        boton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                if(respuestaCorrecta==1){
+                    /* sonido correcto */
+                    aciertos++;
+                    /* variable de aciertos++ */
+                }else{
+                    /* sonido mal */
+                }
+
+                /*comprobamos si es la ultima pregunta */
+                if(nPreguntas==1){
+                    /* ir a FinalJuego */
+
+                    Intent i = new Intent(Juego.this, FinalJuego.class);
+                    i.putExtra("aciertos", aciertos);
+                    startActivity(i);
+                }else{
+                    Enunciado e=enunciados.get(contador);
+                    if(e instanceof EnunciadoTexto) {
+                        tvPregunta.setText(enunciados.get(0).getPreguntaEnunciado());
+                        tvImagen.setBackgroundResource(0);
+                        String correcta = enunciados.get(0).getRespuestaCorrecta();
+                        ArrayList<String> incorrectas = new ArrayList<>();
+                        incorrectas.add(correcta);
+                        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(0));
+                        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(1));
+                        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(2));
+                        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+                        for(int i=0; i<incorrectas.size(); i++){
+                            if(incorrectas.get(i).matches(correcta))
+                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        }
+                        boton1.setText(incorrectas.get(0));
+                        boton2.setText(incorrectas.get(1));
+                        boton3.setText(incorrectas.get(2));
+                        boton4.setText(incorrectas.get(3));
+                    }
+                }
+                nPreguntas--;
+            }
+        });
     }
 }
