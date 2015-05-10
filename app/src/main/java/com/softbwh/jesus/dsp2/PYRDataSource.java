@@ -174,25 +174,25 @@ public class PYRDataSource {
 
     public ArrayList<String> obtenerRespuestas(String tipo, String clase){
         //Sacamos el id del tipo
-        /*String id_tipo="";
-        String columns_tipo[] = new String[]{ColumnTipos.ID_TIPOS, ColumnTipos.CONTENIDO_TIPOS};
-        String selection_tipo = ColumnTipos.CONTENIDO_TIPOS + " = ? ";//WHERE contenido = ?
-        String selectionArgs_tipo[] = new String[]{id_tipo};
-        Cursor c_tipos = database.query(TIPOS_TABLE_NAME, columns_tipo, selection_tipo, selectionArgs_tipo, null, null, null);
-        if(c_tipos.moveToNext())
-            tipo = c_tipos.getString(c_tipos.getColumnIndex(ColumnTipos.ID_TIPOS));
+        String tip="";
+        String columns_tip[] = new String[]{ColumnTipos.ID_TIPOS, ColumnTipos.CONTENIDO_TIPOS};
+        String selection_tip = ColumnTipos.CONTENIDO_TIPOS + " = ? ";//WHERE contenido = ?
+        String selectionArgs_tip[] = new String[]{tipo};
+        Cursor c_tip = database.query(TIPOS_TABLE_NAME, columns_tip, selection_tip, selectionArgs_tip, null, null, null);
+        if(c_tip.moveToNext())
+            tip = c_tip.getString(c_tip.getColumnIndex(ColumnTipos.ID_TIPOS));
         else{
             System.out.println("No hay preguntas para el tipo: "+tipo);
             return null;
-        }*/
+        }
+        //Respuestas para el tipo
         ArrayList<String> respuestas = new ArrayList<String>();
         String columns[] = new String[]{ColumnRespuestas.CONTENIDO_RESPUESTAS, ColumnRespuestas.CLASE_RESPUESTAS, ColumnRespuestas.DESCRIPCION_RESPUESTAS, ColumnRespuestas.TIPO_RESPUESTAS};
         String selection = ColumnRespuestas.TIPO_RESPUESTAS + " = ? ";//WHERE tipo = ?
-        String selectionArgs[] = new String[]{"1"};
+        String selectionArgs[] = new String[]{tip};
         Cursor c = database.query(RESPUESTAS_TABLE_NAME, columns, selection, selectionArgs, null, null, null);
-        String r = c.getString(c.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS));
         while(c.moveToNext()){
-            respuestas.add(r);
+            respuestas.add(c.getString(c.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS)));
         }
         return respuestas;
     }
@@ -200,13 +200,13 @@ public class PYRDataSource {
     public ArrayList<Pregunta> obtenerPreguntas_(String categoria){
         ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
         //Sacamos el id de la categoria
-        int cat=-1;
+        String cat="";
         String columns_cat[] = new String[]{ColumnCategorias.ID_CATEGORIAS, ColumnCategorias.CONTENIDO_CATEGORIAS};
         String selection_cat = ColumnCategorias.CONTENIDO_CATEGORIAS + " = ? ";//WHERE contenido = ?
         String selectionArgs_cat[] = new String[]{categoria};
         Cursor c_cat = database.query(CATEGORIAS_TABLE_NAME, columns_cat, selection_cat, selectionArgs_cat, null, null, null);
         if(c_cat.moveToNext())
-            cat = c_cat.getInt(c_cat.getColumnIndex(ColumnCategorias.ID_CATEGORIAS));
+            cat = c_cat.getString(c_cat.getColumnIndex(ColumnCategorias.ID_CATEGORIAS));
         else{
             System.out.println("No hay preguntas para la categoría: "+categoria);
             return null;
@@ -238,7 +238,7 @@ public class PYRDataSource {
                 clase_string = c_clase.getString(c_clase.getColumnIndex(ColumnClases.CONTENIDO_CLASES));
                 System.out.println("Clase: "+clase_string);
             }else{
-                System.out.println("No existe la clase: "+clase_string);
+                System.out.println("No existe la clase");
                 return null;
             }
             while (c_r.moveToNext()) {

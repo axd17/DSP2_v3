@@ -44,7 +44,7 @@ public class Juego extends Activity {
         preguntas = new ArrayList<String>();
         respuestas = new ArrayList<String>();
         preguntas = datos.obtenerPreguntas(categoriaJuego);
-        respuestas = datos.obtenerRespuestas("club", "texto");
+        respuestas = datos.obtenerRespuestas("numero", "texto");
 
 
 
