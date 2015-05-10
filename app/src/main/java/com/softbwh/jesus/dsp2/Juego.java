@@ -50,23 +50,21 @@ public class Juego extends Activity {
         respuestas = datos.obtenerRespuestas("numero", "texto");
 
 
-
-
-
+        int a=R.drawable.esp;
         /****** CREAR EL TEST ******/
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
         tvPregunta.setText(preguntas.get(0));
-        //tvImagen.setBackground(R.drawable.);
+        tvImagen.setBackgroundResource(a);
         boton1.setText(respuestas.get(0));
         boton2.setText(respuestas.get(1));
         boton3.setText(respuestas.get(2));
         boton4.setText(respuestas.get(3));
-        botonA1.setVisibility(View.INVISIBLE);
-        botonA1.setEnabled(false);
-        botonA2.setVisibility(View.INVISIBLE);
-        botonA2.setEnabled(false);
+        //botonA1.setVisibility(View.INVISIBLE);
+        botonA1.setEnabled(true);
+        //botonA2.setVisibility(View.INVISIBLE);
+        botonA2.setEnabled(true);
         //boton1.setVisibility(View.INVISIBLE);
         respuestaCorrecta=1; //numero del boton de la respuesta correcta (cambia en cada pregunta)*/
 
