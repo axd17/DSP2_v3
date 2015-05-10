@@ -24,6 +24,9 @@ public abstract class Pregunta {
     public String getRespuesta(){
         return respuesta.getContenidoRespuesta();
     }
+    public String getIdRespuesta(){
+        return respuesta.getIdRespuesta();
+    }
 
     public int getDescripcion(){
         return descripcion;

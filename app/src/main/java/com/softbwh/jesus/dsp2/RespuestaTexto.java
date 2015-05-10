@@ -6,8 +6,8 @@ package com.softbwh.jesus.dsp2;
 public class RespuestaTexto extends Respuesta {
 
 
-    public RespuestaTexto(String r) {
-        super(r);
+    public RespuestaTexto(String r, String id_r) {
+        super(r, id_r);
     }
 
 }

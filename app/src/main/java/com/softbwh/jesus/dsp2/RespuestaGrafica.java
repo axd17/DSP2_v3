@@ -6,8 +6,8 @@ package com.softbwh.jesus.dsp2;
 public class RespuestaGrafica extends Respuesta {
 
     private String rutaImagen;
-    public RespuestaGrafica(String r, String ri) {
-        super(r);
+    public RespuestaGrafica(String r, String ri, String id_r) {
+        super(r, id_r);
         rutaImagen=ri;
     }
 }
