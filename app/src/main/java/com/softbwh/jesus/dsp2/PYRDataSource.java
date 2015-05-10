@@ -109,18 +109,37 @@ public class PYRDataSource {
             "INSERT INTO "+PREGUNTAS_TABLE_NAME+" VALUES" +
                     "(1,'¿Cuántas Champions Leagues posee el Real Madrid?','',1,1,1,1)," +
                     "(2,'¿Qué club ganó La Liga BBVA en 2014?','',4,1,2,1)," +
-                    "(3,'¿Qué club ganó la Copa del Rey de Fútbol en 2014?','',2,1,2,1)";
+                    "(3,'¿Qué club ganó la Copa del Rey de Fútbol en 2014?','',2,1,2,1)," +
+                    "(4,'¿Qué club ganó la Supercopa de España de Fútbol en 2014?','',4,1,2,1)," +
+                    "(5,'¿Qué club ganó la Champions League en 2014?','',2,1,2,1)," +
+                    "(6,'¿Cuántos puntos obtuvo el Granada CF durante la temporada 2013-2014?','',10,1,1,1)," +
+                    "(7,'¿Qué jugador fue el Pichichi de La Liga en la temporada 2013-2014?','',11,1,6,1)," +
+                    "(8,'¿Qué portero fue el Zamora de La Liga en la temporada 2013-2014?','',17,1,7,1)," +
+                    "(9,'¿En qué posición quedó el Granada CF al final de la temporada 2013-2014?','',19,1,1,1)," +
+                    "(10,'¿En qué año consiguió el FC Barcelona el sextete?','',7,1,5,1)";
 
     public static final String INSERT_RESPUESTAS_SCRIPT =
             "INSERT INTO "+RESPUESTAS_TABLE_NAME+" VALUES" +
                     "(1,'10','',1,1)," +
-                    "(6,'8','',1,1)," +
-                    "(7,'9','',1,1)," +
-                    "(8,'7','',1,1)," +
                     "(2,'Real Madrid','',2,1)," +
                     "(3,'FC Barcelona','',2,1)," +
+                    "(4,'Atlético de Madrid','',2,1)," +
                     "(5,'Valencia CF','',2,1)," +
-                    "(4,'Atlético de Madrid','',2,1)";
+                    "(6,'2009','',5,1)," +
+                    "(7,'2010','',5,1)," +
+                    "(8,'2008','',5,1)," +
+                    "(9,'2007','',5,1)," +
+                    "(10,'41','',1,1)," +
+                    "(11,'Cristiano Ronaldo','',6,1)," +
+                    "(12,'Leo Messi','',6,1)," +
+                    "(13,'Aritz Aduriz','',6,1)," +
+                    "(14,'Diego Costa','',6,1)," +
+                    "(15,'Íker Casillas','',7,1)," +
+                    "(16,'Keylor Navas','',7,1)," +
+                    "(17,'Tibaut Courtois','',7,1)," +
+                    "(18,'Claudio Bravo','',7,1)," +
+                    "(19,'15','',1,1)," +
+                    "(20,'Athletic de Bilbao','',2,1)";
 
     public static final String INSERT_CATEGORIAS_SCRIPT =
             "INSERT INTO "+CATEGORIAS_TABLE_NAME+" VALUES" +
@@ -128,8 +147,13 @@ public class PYRDataSource {
 
     public static final String INSERT_TIPOS_SCRIPT =
             "INSERT INTO "+TIPOS_TABLE_NAME+" VALUES" +
-                    "(1, 'numero'), " +
-                    "(2, 'club')";
+                    "(1, 'número'), " +
+                    "(2, 'club'), " +
+                    "(3, 'día'), " +
+                    "(4, 'mes'), " +
+                    "(5, 'año'), " +
+                    "(6, 'jugador'), " +
+                    "(7, 'portero')";
 
     public static final String INSERT_CLASES_SCRIPT =
             "INSERT INTO "+CLASES_TABLE_NAME+" VALUES" +
@@ -143,7 +167,7 @@ public class PYRDataSource {
     public PYRDataSource(Context context) {
         //Creando una instancia hacia la base de datos
         openHelper = new PYRReaderDBHelper(context);
-        database = openHelper.getReadableDatabase();
+        database = openHelper.getWritableDatabase();
     }
 
     public ArrayList<Pregunta> obtenerPreguntas(String categoria) {
@@ -272,8 +296,8 @@ public class PYRDataSource {
             ArrayList<Respuesta> r = new ArrayList<>();
             System.out.println("Tipo: "+p.getTipo()+", Clase: "+clase+", Id respuesta: "+p.getIdRespuesta());
             //Comprobar tipos
-            if(p.getTipo().matches("1")){
-                r = generarRespuestasAleatorias(p.getIdRespuesta());
+            if(p.getTipo().matches("1") || p.getTipo().matches("3") || p.getTipo().matches("4") || p.getTipo().matches("5")){
+                r = generarRespuestasAleatorias(p.getIdRespuesta(), Integer.valueOf(p.getTipo()));
             }else {
                 ArrayList<Respuesta> respuestas = new ArrayList<>();
                 respuestas = obtenerRespuestas(p.getTipo(), clase, p.getIdRespuesta());
@@ -297,7 +321,7 @@ public class PYRDataSource {
         return enunciados;
     }
 
-    private ArrayList<Respuesta> generarRespuestasAleatorias(String id_r){
+    private ArrayList<Respuesta> generarRespuestasAleatorias(String id_r, int tipo){
         //Sacamos el contenido del id de la respuesta
         ArrayList<Respuesta> r = new ArrayList<>();
         String resp="";
@@ -312,14 +336,36 @@ public class PYRDataSource {
             return null;
         }
         int valor=Integer.valueOf(resp);
+        ArrayList<String> numeros = new ArrayList<>();
         for(int i=0; i<3; i++) {
-            String numerito="";
+            String numerito = "";
+            int randomNum = -1;
             do {
                 Random rand = new Random();
-                int randomNum = rand.nextInt((valor - valor / 2) + 1) + 1;
-                numerito = Integer.toString(randomNum + valor / 2);
-            }while(r.contains(numerito));
-            r.add(new RespuestaTexto(numerito, "0"));
+                System.out.println("Tipo de la respuesta aleatoria: "+tipo);
+                switch(tipo){
+                    case 1://Entero
+                        randomNum = rand.nextInt((valor - valor / 2) + 1) + 1;
+                        numerito = Integer.toString(randomNum + valor / 2);
+                        break;
+                    case 3://Día
+                        randomNum = rand.nextInt((30) + 1) + 1;
+                        numerito = Integer.toString(randomNum);
+                        break;
+                    case 4://Mes
+                        randomNum = rand.nextInt((12) + 1) + 1;
+                        numerito = Integer.toString(randomNum);
+                        break;
+                    case 5://Año
+                        randomNum = rand.nextInt((20) + 1) + 1;
+                        numerito = Integer.toString(randomNum + valor-20);
+                        if(Integer.valueOf(numerito) >= 2015)
+                            numerito = resp;
+                        break;
+                }
+            }while(numeros.contains(numerito) || numerito.matches(resp));
+            numeros.add(numerito);
+            r.add(new RespuestaTexto(numeros.get(i), "-1"));
         }
         return r;
     }

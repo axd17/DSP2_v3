@@ -1,6 +1,7 @@
 package com.softbwh.jesus.dsp2;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,9 +29,6 @@ public class Juego extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_juego);
-
         PYRDataSource datos = new PYRDataSource(this);
 
         /* Asignamos los ids a los elementos */
@@ -55,14 +53,23 @@ public class Juego extends Activity {
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
-        tvPregunta.setText(enunciados.get(0).getPreguntaEnunciado());
+        System.out.println("Preguntas: ");
+        for(Enunciado e:enunciados){
+            System.out.println(e.getPreguntaEnunciado());
+            System.out.println(e.getRespuestaCorrecta());
+            System.out.println(e.getRespuestasEnunciados().get(0));
+            System.out.println(e.getRespuestasEnunciados().get(1));
+            System.out.println(e.getRespuestasEnunciados().get(2));
+        }
+        Enunciado e_inicial = enunciados.get(contador);
+        tvPregunta.setText(e_inicial.getPreguntaEnunciado());
         tvImagen.setBackgroundResource(0);
-        String correcta = enunciados.get(0).getRespuestaCorrecta();
+        String correcta = e_inicial.getRespuestaCorrecta();
         ArrayList<String> incorrectas = new ArrayList<>();
         incorrectas.add(correcta);
-        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(0));
-        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(1));
-        incorrectas.add(enunciados.get(0).getRespuestasEnunciados().get(2));
+        incorrectas.add(e_inicial.getRespuestasEnunciados().get(0));
+        incorrectas.add(e_inicial.getRespuestasEnunciados().get(1));
+        incorrectas.add(e_inicial.getRespuestasEnunciados().get(2));
         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
         for (int i = 0; i < incorrectas.size(); i++) {
             if (incorrectas.get(i).matches(correcta))
