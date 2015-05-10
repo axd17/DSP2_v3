@@ -16,8 +16,8 @@ public class Juego extends Activity {
     private int respuestaCorrecta;
     private int aciertos;
     private int nPreguntas;
-    private TextView tvPregunta;
-    private Button boton1,boton2,boton3,boton4;
+    private TextView tvPregunta, tvImagen;
+    private Button boton1,boton2,boton3,boton4,botonA1,botonA2;
     private ArrayList<Enunciado> enunciados;
     private ArrayList<String> preguntas;
     private ArrayList<String> respuestas;
@@ -33,10 +33,13 @@ public class Juego extends Activity {
 
         /* Asignamos los ids a los elementos */
         tvPregunta = (TextView) findViewById(R.id.tvPregunta);
+        tvImagen = (TextView) findViewById(R.id.tvImagen);
         boton1 = (Button) findViewById(R.id.button);
         boton2 = (Button) findViewById(R.id.button2);
         boton3 = (Button) findViewById(R.id.button3);
         boton4 = (Button) findViewById(R.id.button4);
+        botonA1= (Button) findViewById(R.id.buttonA1);
+        botonA2= (Button) findViewById(R.id.buttonA2);
 
         /****** CREAR EL TEST ******/
 
@@ -55,10 +58,16 @@ public class Juego extends Activity {
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
         tvPregunta.setText(preguntas.get(0));
+        //tvImagen.setBackground(R.drawable.);
         boton1.setText(respuestas.get(0));
         boton2.setText(respuestas.get(1));
         boton3.setText(respuestas.get(2));
         boton4.setText(respuestas.get(3));
+        botonA1.setVisibility(View.INVISIBLE);
+        botonA1.setEnabled(false);
+        botonA2.setVisibility(View.INVISIBLE);
+        botonA2.setEnabled(false);
+        //boton1.setVisibility(View.INVISIBLE);
         respuestaCorrecta=1; //numero del boton de la respuesta correcta (cambia en cada pregunta)*/
 
         /* variables de control de las preguntas */

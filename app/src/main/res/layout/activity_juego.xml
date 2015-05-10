@@ -26,7 +26,7 @@
             android:layout_weight="0.17" />
 
         <TextView
-            android:layout_width="358dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Texto de la pregunta"
@@ -34,36 +34,63 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.17" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:id="@+id/tvImagen"
+            android:layout_weight="0.07" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/buttonA1" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/buttonA2" />
+        </LinearLayout>
+
         <Button
-            android:layout_width="346dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 1"
             android:id="@+id/button"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.15" />
+            android:layout_weight="0.07" />
 
         <Button
-            android:layout_width="346dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 2"
             android:id="@+id/button2"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.17" />
+            android:layout_weight="0.07" />
 
         <Button
-            android:layout_width="346dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 3"
             android:id="@+id/button3"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.17" />
+            android:layout_weight="0.07" />
 
         <Button
-            android:layout_width="346dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Respuesta 4"
             android:id="@+id/button4"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.17" />
+            android:layout_weight="0.07" />
     </LinearLayout>
 </RelativeLayout>

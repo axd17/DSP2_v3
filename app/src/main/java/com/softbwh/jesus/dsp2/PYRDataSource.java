@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -259,6 +260,7 @@ public class PYRDataSource {
                 System.out.println("Pregunta: "+preguntas.get(preguntas.size()-1).getContenido().toString());
             }
         }
+        Log.i("LOGTAG", "Entra en obtenerPreguntas");
         return preguntas;
     }
 
