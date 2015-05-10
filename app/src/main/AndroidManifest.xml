@@ -26,15 +26,21 @@
         </activity>
         <activity
             android:name=".Resultados"
-            android:label="@string/title_activity_resultados" >
+            android:label="@string/title_activity_resultados"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name=".OtrosJuegos"
-            android:label="@string/title_activity_otros_juegos" >
+            android:label="@string/title_activity_otros_juegos"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
         <activity
             android:name=".FinalJuego"
-            android:label="@string/title_activity_final_juego" >
+            android:label="@string/title_activity_final_juego"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 
