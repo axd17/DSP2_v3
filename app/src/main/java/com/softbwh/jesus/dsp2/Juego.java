@@ -19,8 +19,6 @@ public class Juego extends Activity {
     private TextView tvPregunta, tvImagen;
     private Button boton1,boton2,boton3,boton4,botonA1,botonA2;
     private ArrayList<Enunciado> enunciados;
-    private ArrayList<String> preguntas;
-    private ArrayList<String> respuestas;
     private final String categoriaJuego = "futbol";
     //se necesitara aqui tener el test generado ya
 
@@ -44,10 +42,8 @@ public class Juego extends Activity {
         /****** CREAR EL TEST ******/
 
         //enunciados = datos.obtenerEnunciados(categoriaJuego);
-        preguntas = new ArrayList<String>();
-        respuestas = new ArrayList<String>();
-        preguntas = datos.obtenerPreguntas(categoriaJuego);
-        respuestas = datos.obtenerRespuestas("numero", "texto");
+        enunciados = new ArrayList<>();
+        enunciados = datos.obtenerEnunciados(categoriaJuego);
 
 
         int a=R.drawable.esp;

@@ -194,11 +194,11 @@ public class PYRDataSource {
                 String c_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS));
                 String d_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.DESCRIPCION_RESPUESTAS));
                 if (clase.matches("texto"))
-                    preguntas.add(new PreguntaTexto(c_p, new RespuestaTexto(c_r, id_r), id_tipo));
+                    preguntas.add(new PreguntaTexto(c_p, new RespuestaTexto(c_r, id_r), 0, id_tipo));
                 else if (clase.matches("audio"))
-                    preguntas.add(new PreguntaAudio(c_p, new RespuestaAudio(c_r, d_r, id_r), d_p, id_tipo));
+                    preguntas.add(new PreguntaAudio(c_p, new RespuestaAudio(c_r, d_r, id_r), Integer.valueOf(d_p), id_tipo));
                 else if (clase.matches("grafica"))
-                    preguntas.add(new PreguntaGrafica(c_p, new RespuestaGrafica(c_r, d_r, id_r), d_p, id_tipo));
+                    preguntas.add(new PreguntaGrafica(c_p, new RespuestaGrafica(c_r, d_r, id_r), Integer.valueOf(d_p), id_tipo));
                 else {
                     System.out.println("Error en la clase de las respuestas");
                     return null;

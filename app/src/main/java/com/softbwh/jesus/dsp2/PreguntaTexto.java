@@ -6,7 +6,7 @@ package com.softbwh.jesus.dsp2;
 public class PreguntaTexto extends Pregunta {
 
     
-    public PreguntaTexto(String cont, Respuesta r, String tip, int rt) {
+    public PreguntaTexto(String cont, Respuesta r, int rt, String tip) {
         super(cont, r, rt, cont);
     }
 
