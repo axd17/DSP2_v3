@@ -7,6 +7,7 @@ public abstract class Respuesta {
 
     private String respuesta;
     private String id;
+    private int descripcion;
 
     public Respuesta(String r, String id_r){
         respuesta=r;
@@ -18,5 +19,8 @@ public abstract class Respuesta {
     }
     public String getIdRespuesta(){
         return id;
+    }
+    public int getDescripcion(){
+        return descripcion;
     }
 }

@@ -18,9 +18,11 @@ public abstract class Enunciado {
         return pregunta.getContenido();
     }
 
-    public String getRespuestaCorrecta(){
+    public Respuesta getRespuestaCorrecta(){
         return pregunta.getRespuesta();
     }
+
+
 
     public ArrayList<String> getRespuestasEnunciados(){
         ArrayList<String> ret=new ArrayList<String>(3);

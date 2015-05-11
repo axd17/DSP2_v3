@@ -66,7 +66,7 @@ public class Juego extends Activity {
         String pregunta=enunciados.get(contador).getPreguntaEnunciado();
         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
         tvImagen.setBackgroundResource(0);
-        String correcta = enunciados.get(contador).getRespuestaCorrecta();
+        String correcta = enunciados.get(contador).getRespuestaCorrecta().;
         ArrayList<String> incorrectas = new ArrayList<>();
         incorrectas.add(correcta);
         incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
@@ -91,10 +91,10 @@ public class Juego extends Activity {
         nPreguntas = 10; //numero de preguntas totales (soloc ambia al generar el test
         /* Poner una variable que diga cual es la respuesta correcta */
 
-        /*mostrarEnunciado(boton1);
+        mostrarEnunciado(boton1);
         mostrarEnunciado(boton2);
         mostrarEnunciado(boton3);
-        mostrarEnunciado(boton4);*/
+        mostrarEnunciado(boton4);
     }
 
 
@@ -141,7 +141,7 @@ public class Juego extends Activity {
                     if(e instanceof EnunciadoTexto) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
-                        String correcta = enunciados.get(contador).getRespuestaCorrecta();
+                        String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
                         ArrayList<String> incorrectas = new ArrayList<>();
                         incorrectas.add(correcta);
                         incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
@@ -150,6 +150,24 @@ public class Juego extends Activity {
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
                         for(int i=0; i<incorrectas.size(); i++){
                             if(incorrectas.get(i).matches(correcta))
+                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        }
+                        boton1.setText(incorrectas.get(0));
+                        boton2.setText(incorrectas.get(1));
+                        boton3.setText(incorrectas.get(2));
+                        boton4.setText(incorrectas.get(3));
+                    }else if(e instanceof EnunciadoGrafico) {
+                        tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
+                        tvImagen.setBackgroundResource(0);
+                        int correcta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+                        ArrayList<Integer> incorrectas = new ArrayList<>();
+                        incorrectas.add(correcta);
+                        incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
+                        incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
+                        incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
+                        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+                        for(int i=0; i<incorrectas.size(); i++){
+                            if(incorrectas.get(i) == correcta)
                                 respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         boton1.setText(incorrectas.get(0));
