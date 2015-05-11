@@ -30,6 +30,8 @@ public class Juego extends Activity {
     private final String categoriaJuego = "futbol";
     MediaPlayer player;
     MediaPlayer sonidito;
+    private int aciertosTotales=0;
+    private int preguntasTotales=0;
     //se necesitara aqui tener el test generado ya
 
     @Override
@@ -37,6 +39,10 @@ public class Juego extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
         PYRDataSource datos = new PYRDataSource(this);
+
+        Intent intent= getIntent();
+        aciertosTotales+=intent.getIntExtra("aciertos",0);
+        preguntasTotales+=intent.getIntExtra("preguntas",0);
 
         /* Asignamos los ids a los elementos */
         tvPregunta = (TextView) findViewById(R.id.tvPregunta);
@@ -218,6 +224,8 @@ public class Juego extends Activity {
                     Intent i = new Intent(Juego.this, FinalJuego.class);
                     i.putExtra("aciertos", aciertos);
                     i.putExtra("preguntas", enunciados.size());
+                    i.putExtra("aciertosTotales", aciertosTotales+aciertos);
+                    i.putExtra("preguntasTotales", preguntasTotales+enunciados.size());
                     startActivity(i);
                 }else{
                     Enunciado e=enunciados.get(contador);

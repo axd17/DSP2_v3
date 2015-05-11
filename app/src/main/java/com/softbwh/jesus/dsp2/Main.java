@@ -26,13 +26,15 @@ public class Main extends Activity {
         //startActivityForResult(intent, ADD_REQUEST_CODE);
 
         Intent intent= getIntent();
-        aciertos=intent.getIntExtra("aciertos",0);
-        preguntas=intent.getIntExtra("preguntas",0);
+        aciertos+=intent.getIntExtra("aciertos",0);
+        preguntas+=intent.getIntExtra("preguntas",0);
 
         Button botonJugar = (Button) findViewById(R.id.button);
         botonJugar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(Main.this, Juego.class);
+                i.putExtra("aciertos", aciertos);
+                i.putExtra("preguntas",preguntas);
                 startActivity(i);
             }
         });

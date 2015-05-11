@@ -14,6 +14,8 @@ public class FinalJuego extends Activity {
 
     private int aciertos;
     private int preguntas;
+    private int preguntasTotales=0;
+    private int aciertosTotales=0;
     private TextView tvCorrectas, tvFalladas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class FinalJuego extends Activity {
         Intent intent= getIntent();
         aciertos=intent.getIntExtra("aciertos",0);
         preguntas=intent.getIntExtra("preguntas",0);
+        preguntasTotales=intent.getIntExtra("preguntasTotales",0);
+        aciertosTotales=intent.getIntExtra("aciertosTotales",0);
 
         tvCorrectas = (TextView) findViewById(R.id.tvCorrectas);
         tvFalladas = (TextView) findViewById(R.id.tvFalladas);
@@ -34,8 +38,10 @@ public class FinalJuego extends Activity {
         botonMain.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(FinalJuego.this, Main.class);
-                i.putExtra("aciertos", aciertos);
-                i.putExtra("preguntas",preguntas);
+                i.putExtra("aciertos", aciertosTotales);
+                i.putExtra("preguntas",preguntasTotales);
+                i.putExtra("preguntasTotales", preguntasTotales);
+                i.putExtra("aciertosTotales", aciertosTotales);
                 startActivity(i);
             }
         });
