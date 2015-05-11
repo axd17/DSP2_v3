@@ -29,6 +29,8 @@ public class Juego extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_juego);
         PYRDataSource datos = new PYRDataSource(this);
 
         /* Asignamos los ids a los elementos */
@@ -118,6 +120,7 @@ public class Juego extends Activity {
     public void mostrarEnunciado(Button boton){
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                contador++;
                 if(respuestaCorrecta==1){
                     /* sonido correcto */
                     aciertos++;
@@ -158,6 +161,5 @@ public class Juego extends Activity {
                 nPreguntas--;
             }
         });
-        contador++;
     }
 }
