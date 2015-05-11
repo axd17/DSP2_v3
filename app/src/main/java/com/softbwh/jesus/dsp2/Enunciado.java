@@ -29,4 +29,8 @@ public abstract class Enunciado {
         }
         return ret;
     }
+
+    public ArrayList<Respuesta> getRespuestas(){
+        return respuestas;
+    }
 }
