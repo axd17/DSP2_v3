@@ -95,7 +95,6 @@ public class Juego extends Activity {
                 if(incorrectas.get(i) == correcta)
                     respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
-            int a=R.drawable.esp;
             boton1.setBackgroundResource(incorrectas.get(0));
             boton2.setBackgroundResource(incorrectas.get(1));
             boton3.setBackgroundResource(incorrectas.get(2));
@@ -124,8 +123,10 @@ public class Juego extends Activity {
             boton4.setText(incorrectas.get(3));
             botonA1.setVisibility(View.VISIBLE);
             botonA1.setEnabled(true);
+            botonA1.setText("Play");
             botonA2.setVisibility(View.VISIBLE);
             botonA2.setEnabled(true);
+            botonA2.setText("Pause");
             player = MediaPlayer.create(Juego.this, enunciados.get(contador).getPregunta().getDescripcion());
 
             botonA1.setOnClickListener(new View.OnClickListener() {
