@@ -116,7 +116,7 @@ public class PYRDataSource {
                     "(7,'¿Qué jugador fue el Pichichi de La Liga en la temporada 2013-2014?','',11,1,6,1)," +
                     "(8,'¿Qué portero fue el Zamora de La Liga en la temporada 2013-2014?','',17,1,7,1)," +
                     "(9,'¿En qué posición quedó el Granada CF al final de la temporada 2013-2014?','',19,1,1,1)," +
-                    "(10,'¿En qué año consiguió el FC Barcelona el sextete?','',7,1,5,1)";
+                    "(10,'¿En qué año consiguió el FC Barcelona el sextete?','',6,1,5,1)";
 
     public static final String INSERT_RESPUESTAS_SCRIPT =
             "INSERT INTO "+RESPUESTAS_TABLE_NAME+" VALUES" +

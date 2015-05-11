@@ -56,6 +56,13 @@ public class Juego extends Activity {
         //int a = R.drawable.esp;
         /****** CREAR EL TEST ******/
 
+        /*for(Enunciado e:enunciados){
+            System.out.println(e.getPreguntaEnunciado());
+            System.out.println(e.getRespuestaCorrecta().getContenidoRespuesta());
+            System.out.println(e.getRespuestas().get(0).getContenidoRespuesta());
+            System.out.println(e.getRespuestas().get(1).getContenidoRespuesta());
+            System.out.println(e.getRespuestas().get(2).getContenidoRespuesta());
+        }*/
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
         Enunciado e=enunciados.get(contador);
@@ -71,7 +78,7 @@ public class Juego extends Activity {
             Collections.shuffle(incorrectas, new Random(System.nanoTime()));
             for(int i=0; i<incorrectas.size(); i++){
                 if(incorrectas.get(i).matches(correcta))
-                    respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                    respuestaCorrecta = 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
             boton1.setText(incorrectas.get(0));
             boton2.setText(incorrectas.get(1));
@@ -220,11 +227,9 @@ public class Juego extends Activity {
                     sonidito.start();
                     /* sonido mal */
                 }
-
                 /*comprobamos si es la ultima pregunta */
                 if(nPreguntas==1){
                     /* ir a FinalJuego */
-
                     Intent i = new Intent(Juego.this, FinalJuego.class);
                     i.putExtra("aciertos", aciertos);
                     i.putExtra("preguntas", enunciados.size());
@@ -243,7 +248,7 @@ public class Juego extends Activity {
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
                         for(int i=0; i<incorrectas.size(); i++){
                             if(incorrectas.get(i).matches(correcta))
-                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                                respuestaCorrecta = 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
@@ -262,12 +267,12 @@ public class Juego extends Activity {
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
-                        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-                        for(int i=0; i<incorrectas.size(); i++){
-                            if(incorrectas.get(i) == correcta)
-                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
-                        }
-                        int a=R.drawable.esp;
+                        //Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+                        //for(int i=0; i<incorrectas.size(); i++){
+                            //if(incorrectas.get(i) == correcta)
+                                respuestaCorrecta = 0;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        //}
+                        //int a=R.drawable.esp;
                         boton1.setBackgroundResource(incorrectas.get(0));
                         boton2.setBackgroundResource(incorrectas.get(1));
                         boton3.setBackgroundResource(incorrectas.get(2));
@@ -304,7 +309,6 @@ public class Juego extends Activity {
                             @Override
                             public void onClick(View v) {
                                 player.start();
-
                             }
                         });
 
