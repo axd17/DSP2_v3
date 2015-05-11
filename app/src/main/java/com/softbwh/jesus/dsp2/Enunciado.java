@@ -22,6 +22,10 @@ public abstract class Enunciado {
         return pregunta.getRespuesta();
     }
 
+    public Pregunta getPregunta(){
+        return pregunta;
+    }
+
 
 
     public ArrayList<String> getRespuestasEnunciados(){

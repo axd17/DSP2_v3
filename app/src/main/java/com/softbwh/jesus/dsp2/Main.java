@@ -13,6 +13,8 @@ public class Main extends Activity {
 
     //Código de envío
     public final static int ADD_REQUEST_CODE = 1;
+    private int aciertos=0;
+    private int preguntas=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,10 @@ public class Main extends Activity {
         //Intent intent = new Intent(this, java.text.Normalizer.Form.class);
         //Inicio de la actividad esperando un resultado
         //startActivityForResult(intent, ADD_REQUEST_CODE);
+
+        Intent intent= getIntent();
+        aciertos=intent.getIntExtra("aciertos",0);
+        preguntas=intent.getIntExtra("preguntas",0);
 
         Button botonJugar = (Button) findViewById(R.id.button);
         botonJugar.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +41,8 @@ public class Main extends Activity {
         botonResultados.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(Main.this, Resultados.class);
+                i.putExtra("aciertos", aciertos);
+                i.putExtra("preguntas",preguntas);
                 startActivity(i);
             }
         });

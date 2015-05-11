@@ -1,17 +1,44 @@
 package com.softbwh.jesus.dsp2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class FinalJuego extends Activity {
 
+    private int aciertos;
+    private int preguntas;
+    private TextView tvCorrectas, tvFalladas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_juego);
+
+        Intent intent= getIntent();
+        aciertos=intent.getIntExtra("aciertos",0);
+        preguntas=intent.getIntExtra("preguntas",0);
+
+        tvCorrectas = (TextView) findViewById(R.id.tvCorrectas);
+        tvFalladas = (TextView) findViewById(R.id.tvFalladas);
+
+        tvFalladas.setText("Respuestas falladas: "+ (preguntas-aciertos));
+        tvCorrectas.setText("Respuestas acertadas: "+ aciertos);
+
+        Button botonMain = (Button) findViewById(R.id.btMain);
+        botonMain.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(FinalJuego.this, Main.class);
+                i.putExtra("aciertos", aciertos);
+                i.putExtra("preguntas",preguntas);
+                startActivity(i);
+            }
+        });
     }
 
 

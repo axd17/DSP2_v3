@@ -3,6 +3,7 @@ package com.softbwh.jesus.dsp2;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +26,8 @@ public class Juego extends Activity {
     private ArrayList<Enunciado> enunciados;
     private int contador = 0;
     private final String categoriaJuego = "futbol";
+    MediaPlayer player;
+    MediaPlayer sonidito;
     //se necesitara aqui tener el test generado ya
 
     @Override
@@ -55,18 +58,102 @@ public class Juego extends Activity {
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
-        /*for(Enunciado e:enunciados){
-            System.out.println(e.getPreguntaEnunciado());
-            System.out.println(e.getRespuestaCorrecta());
-            System.out.println(e.getRespuestasEnunciados().get(0));
-            System.out.println(e.getRespuestasEnunciados().get(1));
-            System.out.println(e.getRespuestasEnunciados().get(2));
-        }*/
+        Enunciado e=enunciados.get(contador);
+        if(e instanceof EnunciadoTexto) {
+            tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
+            tvImagen.setBackgroundResource(0);
+            String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+            ArrayList<String> incorrectas = new ArrayList<>();
+            incorrectas.add(correcta);
+            incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
+            incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(1));
+            incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(2));
+            Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+            for(int i=0; i<incorrectas.size(); i++){
+                if(incorrectas.get(i).matches(correcta))
+                    respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+            }
+            boton1.setText(incorrectas.get(0));
+            boton2.setText(incorrectas.get(1));
+            boton3.setText(incorrectas.get(2));
+            boton4.setText(incorrectas.get(3));
+            botonA1.setVisibility(View.INVISIBLE);
+            botonA1.setEnabled(false);
+            botonA2.setVisibility(View.INVISIBLE);
+            botonA2.setEnabled(false);
+        }else if(e instanceof EnunciadoGrafico) {
+            tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
+            tvImagen.setBackgroundResource(0);
+            int correcta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+            ArrayList<Integer> incorrectas = new ArrayList<>();
+            incorrectas.add(correcta);
+            incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
+            incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
+            incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
+            Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+            for(int i=0; i<incorrectas.size(); i++){
+                if(incorrectas.get(i) == correcta)
+                    respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+            }
+            int a=R.drawable.esp;
+            boton1.setBackgroundResource(incorrectas.get(0));
+            boton2.setBackgroundResource(incorrectas.get(1));
+            boton3.setBackgroundResource(incorrectas.get(2));
+            boton4.setBackgroundResource(incorrectas.get(3));
+            botonA1.setVisibility(View.INVISIBLE);
+            botonA1.setEnabled(false);
+            botonA2.setVisibility(View.INVISIBLE);
+            botonA2.setEnabled(false);
+        }else if(e instanceof EnunciadoAudio){
+            tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
+            tvImagen.setBackgroundResource(0);
+            String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+            ArrayList<String> incorrectas = new ArrayList<>();
+            incorrectas.add(correcta);
+            incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getContenidoRespuesta());
+            incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getContenidoRespuesta());
+            incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getContenidoRespuesta());
+            Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+            for(int i=0; i<incorrectas.size(); i++){
+                if(incorrectas.get(i) == correcta)
+                    respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+            }
+            boton1.setText(incorrectas.get(0));
+            boton2.setText(incorrectas.get(1));
+            boton3.setText(incorrectas.get(2));
+            boton4.setText(incorrectas.get(3));
+            botonA1.setVisibility(View.VISIBLE);
+            botonA1.setEnabled(true);
+            botonA2.setVisibility(View.VISIBLE);
+            botonA2.setEnabled(true);
+            player = MediaPlayer.create(Juego.this, enunciados.get(contador).getPregunta().getDescripcion());
+
+            botonA1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    player.start();
+
+                }
+            });
+
+            botonA2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    player.pause();
+
+                }
+
+            });
+        }
        //Enunciado e_inicial = new EnunciadoTexto(enunciados.get(contador).getPreguntaEnunciado(), enunciados.get(contador).getRespuestas());
-        String pregunta=enunciados.get(contador).getPreguntaEnunciado();
+        /*String pregunta=enunciados.get(contador).getPreguntaEnunciado();
         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
-        tvImagen.setBackgroundResource(0);
-        String correcta = enunciados.get(contador).getRespuestaCorrecta().;
+        int a=R.drawable.esp;
+        tvImagen.setBackgroundResource(a);*/
+
+        /* comprobar de que tipo es la primera pregunta */
+
+        /*String correcta = enunciados.get(contador).getRespuestaCorrecta().;
         ArrayList<String> incorrectas = new ArrayList<>();
         incorrectas.add(correcta);
         incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
@@ -84,7 +171,7 @@ public class Juego extends Activity {
         botonA1.setVisibility(View.INVISIBLE);
         botonA1.setEnabled(true);
         botonA2.setVisibility(View.INVISIBLE);
-        botonA2.setEnabled(true);
+        botonA2.setEnabled(true);*/
 
         /* variables de control de las preguntas */
         aciertos = 0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
@@ -123,9 +210,13 @@ public class Juego extends Activity {
                 contador++;
                 if(respuestaCorrecta==1){
                     /* sonido correcto */
+                    sonidito=MediaPlayer.create(Juego.this, R.raw.correcto);
+                    sonidito.start();
                     aciertos++;
                     /* variable de aciertos++ */
                 }else{
+                    sonidito=MediaPlayer.create(Juego.this, R.raw.incorrect);
+                    sonidito.start();
                     /* sonido mal */
                 }
 
@@ -135,6 +226,7 @@ public class Juego extends Activity {
 
                     Intent i = new Intent(Juego.this, FinalJuego.class);
                     i.putExtra("aciertos", aciertos);
+                    i.putExtra("preguntas", enunciados.size());
                     startActivity(i);
                 }else{
                     Enunciado e=enunciados.get(contador);
@@ -156,6 +248,10 @@ public class Juego extends Activity {
                         boton2.setText(incorrectas.get(1));
                         boton3.setText(incorrectas.get(2));
                         boton4.setText(incorrectas.get(3));
+                        botonA1.setVisibility(View.INVISIBLE);
+                        botonA1.setEnabled(false);
+                        botonA2.setVisibility(View.INVISIBLE);
+                        botonA2.setEnabled(false);
                     }else if(e instanceof EnunciadoGrafico) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
@@ -170,10 +266,55 @@ public class Juego extends Activity {
                             if(incorrectas.get(i) == correcta)
                                 respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
+                        int a=R.drawable.esp;
+                        boton1.setBackgroundResource(incorrectas.get(0));
+                        boton2.setBackgroundResource(incorrectas.get(1));
+                        boton3.setBackgroundResource(incorrectas.get(2));
+                        boton4.setBackgroundResource(incorrectas.get(3));
+                        botonA1.setVisibility(View.INVISIBLE);
+                        botonA1.setEnabled(false);
+                        botonA2.setVisibility(View.INVISIBLE);
+                        botonA2.setEnabled(false);
+                    }else if(e instanceof EnunciadoAudio){
+                        tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
+                        tvImagen.setBackgroundResource(0);
+                        String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+                        ArrayList<String> incorrectas = new ArrayList<>();
+                        incorrectas.add(correcta);
+                        incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getContenidoRespuesta());
+                        incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getContenidoRespuesta());
+                        incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getContenidoRespuesta());
+                        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+                        for(int i=0; i<incorrectas.size(); i++){
+                            if(incorrectas.get(i) == correcta)
+                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        }
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
                         boton3.setText(incorrectas.get(2));
                         boton4.setText(incorrectas.get(3));
+                        botonA1.setVisibility(View.VISIBLE);
+                        botonA1.setEnabled(true);
+                        botonA2.setVisibility(View.VISIBLE);
+                        botonA2.setEnabled(true);
+                        player = MediaPlayer.create(Juego.this, enunciados.get(contador).getPregunta().getDescripcion());
+
+                        botonA1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                player.start();
+
+                            }
+                        });
+
+                        botonA2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                player.pause();
+
+                            }
+
+                        });
                     }
                 }
                 nPreguntas--;
