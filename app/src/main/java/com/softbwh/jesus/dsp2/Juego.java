@@ -55,22 +55,23 @@ public class Juego extends Activity {
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
-        for(Enunciado e:enunciados){
+        /*for(Enunciado e:enunciados){
             System.out.println(e.getPreguntaEnunciado());
             System.out.println(e.getRespuestaCorrecta());
             System.out.println(e.getRespuestasEnunciados().get(0));
             System.out.println(e.getRespuestasEnunciados().get(1));
             System.out.println(e.getRespuestasEnunciados().get(2));
-        }
-        Enunciado e_inicial = enunciados.get(contador);
-        tvPregunta.setText(e_inicial.getPreguntaEnunciado());
+        }*/
+       //Enunciado e_inicial = new EnunciadoTexto(enunciados.get(contador).getPreguntaEnunciado(), enunciados.get(contador).getRespuestas());
+        String pregunta=enunciados.get(contador).getPreguntaEnunciado();
+        tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
         tvImagen.setBackgroundResource(0);
-        String correcta = e_inicial.getRespuestaCorrecta();
+        String correcta = enunciados.get(contador).getRespuestaCorrecta();
         ArrayList<String> incorrectas = new ArrayList<>();
         incorrectas.add(correcta);
-        incorrectas.add(e_inicial.getRespuestasEnunciados().get(0));
-        incorrectas.add(e_inicial.getRespuestasEnunciados().get(1));
-        incorrectas.add(e_inicial.getRespuestasEnunciados().get(2));
+        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
+        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(1));
+        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(2));
         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
         for (int i = 0; i < incorrectas.size(); i++) {
             if (incorrectas.get(i).matches(correcta))
@@ -80,21 +81,20 @@ public class Juego extends Activity {
         boton2.setText(incorrectas.get(1));
         boton3.setText(incorrectas.get(2));
         boton4.setText(incorrectas.get(3));
-        //botonA1.setVisibility(View.INVISIBLE);
+        botonA1.setVisibility(View.INVISIBLE);
         botonA1.setEnabled(true);
-        //botonA2.setVisibility(View.INVISIBLE);
+        botonA2.setVisibility(View.INVISIBLE);
         botonA2.setEnabled(true);
-        //boton1.setVisibility(View.INVISIBLE);
 
         /* variables de control de las preguntas */
         aciertos = 0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
         nPreguntas = 10; //numero de preguntas totales (soloc ambia al generar el test
         /* Poner una variable que diga cual es la respuesta correcta */
 
-        mostrarEnunciado(boton1);
+        /*mostrarEnunciado(boton1);
         mostrarEnunciado(boton2);
         mostrarEnunciado(boton3);
-        mostrarEnunciado(boton4);
+        mostrarEnunciado(boton4);*/
     }
 
 
