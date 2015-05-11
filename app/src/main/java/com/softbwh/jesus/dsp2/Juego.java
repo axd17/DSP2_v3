@@ -21,6 +21,8 @@ public class Juego extends Activity {
     private int respuestaCorrecta;
     private int aciertos;
     private int nPreguntas;
+    private String correcta;
+    private int correctaI;
     private TextView tvPregunta, tvImagen;
     private Button boton1,boton2,boton3,boton4,botonA1,botonA2;
     private ArrayList<Enunciado> enunciados;
@@ -69,7 +71,7 @@ public class Juego extends Activity {
         if(e instanceof EnunciadoTexto) {
             tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
             tvImagen.setBackgroundResource(0);
-            String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+            correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
             ArrayList<String> incorrectas = new ArrayList<>();
             incorrectas.add(correcta);
             incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
@@ -101,15 +103,15 @@ public class Juego extends Activity {
         }else if(e instanceof EnunciadoGrafico) {
             tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
             tvImagen.setBackgroundResource(0);
-            int correcta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+            correctaI = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
             ArrayList<Integer> incorrectas = new ArrayList<>();
-            incorrectas.add(correcta);
+            incorrectas.add(correctaI);
             incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
             incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
             incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
             Collections.shuffle(incorrectas, new Random(System.nanoTime()));
             for(int i=0; i<incorrectas.size(); i++){
-                if(incorrectas.get(i) == correcta)
+                if(incorrectas.get(i) == correctaI)
                     respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
             boton1.setBackgroundResource(incorrectas.get(0));
@@ -123,7 +125,7 @@ public class Juego extends Activity {
         }else if(e instanceof EnunciadoAudio){
             tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
             tvImagen.setBackgroundResource(0);
-            String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+            correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
             ArrayList<String> incorrectas = new ArrayList<>();
             incorrectas.add(correcta);
             incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getContenidoRespuesta());
@@ -131,7 +133,7 @@ public class Juego extends Activity {
             incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getContenidoRespuesta());
             Collections.shuffle(incorrectas, new Random(System.nanoTime()));
             for(int i=0; i<incorrectas.size(); i++){
-                if(incorrectas.get(i) == correcta)
+                if(incorrectas.get(i).matches(correcta))
                     respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
             boton1.setText(incorrectas.get(0));
@@ -222,7 +224,7 @@ public class Juego extends Activity {
                     if(e instanceof EnunciadoTexto) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
-                        String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+                        correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
                         ArrayList<String> incorrectas = new ArrayList<>();
                         incorrectas.add(correcta);
                         incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
@@ -254,15 +256,15 @@ public class Juego extends Activity {
                     }else if(e instanceof EnunciadoGrafico) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
-                        int correcta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+                        correctaI = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
                         ArrayList<Integer> incorrectas = new ArrayList<>();
-                        incorrectas.add(correcta);
+                        incorrectas.add(correctaI);
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
                         for(int i=0; i<incorrectas.size(); i++){
-                            if(incorrectas.get(i) == correcta)
+                            if(incorrectas.get(i) == correctaI)
                                 respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         //int a=R.drawable.esp;
@@ -277,7 +279,7 @@ public class Juego extends Activity {
                     }else if(e instanceof EnunciadoAudio){
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
-                        String correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
+                        correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
                         ArrayList<String> incorrectas = new ArrayList<>();
                         incorrectas.add(correcta);
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getContenidoRespuesta());
@@ -285,7 +287,7 @@ public class Juego extends Activity {
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getContenidoRespuesta());
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
                         for(int i=0; i<incorrectas.size(); i++){
-                            if(incorrectas.get(i) == correcta)
+                            if(incorrectas.get(i).matches(correcta))
                                 respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         boton1.setText(incorrectas.get(0));
