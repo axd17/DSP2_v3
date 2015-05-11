@@ -78,12 +78,22 @@ public class Juego extends Activity {
             Collections.shuffle(incorrectas, new Random(System.nanoTime()));
             for(int i=0; i<incorrectas.size(); i++){
                 if(incorrectas.get(i).matches(correcta))
-                    respuestaCorrecta = 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                    respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
             boton1.setText(incorrectas.get(0));
             boton2.setText(incorrectas.get(1));
             boton3.setText(incorrectas.get(2));
             boton4.setText(incorrectas.get(3));
+
+            System.out.println(e.getPreguntaEnunciado());
+            for(String r:incorrectas) {
+                System.out.print(r);
+                if(r.matches(correcta)){
+                    System.out.print(" <--Correcta");
+                }
+                System.out.println("");
+            }
+
             botonA1.setVisibility(View.INVISIBLE);
             botonA1.setEnabled(false);
             botonA2.setVisibility(View.INVISIBLE);
@@ -153,33 +163,6 @@ public class Juego extends Activity {
 
             });
         }
-       //Enunciado e_inicial = new EnunciadoTexto(enunciados.get(contador).getPreguntaEnunciado(), enunciados.get(contador).getRespuestas());
-        /*String pregunta=enunciados.get(contador).getPreguntaEnunciado();
-        tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
-        int a=R.drawable.esp;
-        tvImagen.setBackgroundResource(a);*/
-
-        /* comprobar de que tipo es la primera pregunta */
-
-        /*String correcta = enunciados.get(contador).getRespuestaCorrecta().;
-        ArrayList<String> incorrectas = new ArrayList<>();
-        incorrectas.add(correcta);
-        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(0));
-        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(1));
-        incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(2));
-        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-        for (int i = 0; i < incorrectas.size(); i++) {
-            if (incorrectas.get(i).matches(correcta))
-                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)
-        }
-        boton1.setText(incorrectas.get(0));
-        boton2.setText(incorrectas.get(1));
-        boton3.setText(incorrectas.get(2));
-        boton4.setText(incorrectas.get(3));
-        botonA1.setVisibility(View.INVISIBLE);
-        botonA1.setEnabled(true);
-        botonA2.setVisibility(View.INVISIBLE);
-        botonA2.setEnabled(true);*/
 
         /* variables de control de las preguntas */
         aciertos = 0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
@@ -248,12 +231,22 @@ public class Juego extends Activity {
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
                         for(int i=0; i<incorrectas.size(); i++){
                             if(incorrectas.get(i).matches(correcta))
-                                respuestaCorrecta = 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
                         boton3.setText(incorrectas.get(2));
                         boton4.setText(incorrectas.get(3));
+
+                        System.out.println(e.getPreguntaEnunciado());
+                        for(String r:incorrectas) {
+                            System.out.print(r);
+                            if(r.matches(correcta)){
+                                System.out.print(" <--Correcta");
+                            }
+                            System.out.println("");
+                        }
+
                         botonA1.setVisibility(View.INVISIBLE);
                         botonA1.setEnabled(false);
                         botonA2.setVisibility(View.INVISIBLE);
@@ -267,11 +260,11 @@ public class Juego extends Activity {
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
-                        //Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-                        //for(int i=0; i<incorrectas.size(); i++){
-                            //if(incorrectas.get(i) == correcta)
-                                respuestaCorrecta = 0;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
-                        //}
+                        Collections.shuffle(incorrectas, new Random(System.nanoTime()));
+                        for(int i=0; i<incorrectas.size(); i++){
+                            if(incorrectas.get(i) == correcta)
+                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        }
                         //int a=R.drawable.esp;
                         boton1.setBackgroundResource(incorrectas.get(0));
                         boton2.setBackgroundResource(incorrectas.get(1));
