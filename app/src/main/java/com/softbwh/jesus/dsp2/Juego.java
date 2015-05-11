@@ -53,7 +53,6 @@ public class Juego extends Activity {
 
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
-        System.out.println("Preguntas: ");
         for(Enunciado e:enunciados){
             System.out.println(e.getPreguntaEnunciado());
             System.out.println(e.getRespuestaCorrecta());
@@ -73,7 +72,7 @@ public class Juego extends Activity {
         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
         for (int i = 0; i < incorrectas.size(); i++) {
             if (incorrectas.get(i).matches(correcta))
-                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)
         }
         boton1.setText(incorrectas.get(0));
         boton2.setText(incorrectas.get(1));
@@ -87,7 +86,7 @@ public class Juego extends Activity {
 
         /* variables de control de las preguntas */
         aciertos = 0; //variable que suma los aciertos de 1 en 1 (no suma nada si falla)
-        nPreguntas = enunciados.size(); //numero de preguntas totales (soloc ambia al generar el test
+        nPreguntas = 10; //numero de preguntas totales (soloc ambia al generar el test
         /* Poner una variable que diga cual es la respuesta correcta */
 
         mostrarEnunciado(boton1);
@@ -118,9 +117,7 @@ public class Juego extends Activity {
 
     public void mostrarEnunciado(Button boton){
         boton.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
-                contador++;
                 if(respuestaCorrecta==1){
                     /* sonido correcto */
                     aciertos++;
@@ -161,5 +158,6 @@ public class Juego extends Activity {
                 nPreguntas--;
             }
         });
+        contador++;
     }
 }
