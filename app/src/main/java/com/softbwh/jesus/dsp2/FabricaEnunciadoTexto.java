@@ -14,7 +14,6 @@ public class FabricaEnunciadoTexto extends FabricaEnunciado {
     @Override
     public Enunciado crearEnunciado(Pregunta p, ArrayList<Respuesta> r) {
         Enunciado e=new EnunciadoTexto(p,r);
-
         return e;
     }
 }

@@ -109,14 +109,16 @@ public class PYRDataSource {
             "INSERT INTO "+PREGUNTAS_TABLE_NAME+" VALUES" +
                     "(1,'¿Cuántas Champions Leagues posee el Real Madrid?','',1,1,1,1)," +
                     "(2,'¿Qué club ganó La Liga BBVA en 2014?','',4,1,2,1)," +
-                    "(3,'¿Qué club ganó la Copa del Rey de Fútbol en 2014?','',2,1,2,1)," +
+                    //"(3,'¿Qué club ganó la Copa del Rey de Fútbol en 2014?','',2,1,2,1)," +
                     "(4,'¿Qué club ganó la Supercopa de España de Fútbol en 2014?','',4,1,2,1)," +
                     "(5,'¿Qué club ganó la Champions League en 2014?','',2,1,2,1)," +
                     "(6,'¿Cuántos puntos obtuvo el Granada CF durante la temporada 2013-2014?','',10,1,1,1)," +
                     "(7,'¿Qué jugador fue el Pichichi de La Liga en la temporada 2013-2014?','',11,1,6,1)," +
                     "(8,'¿Qué portero fue el Zamora de La Liga en la temporada 2013-2014?','',17,1,7,1)," +
                     "(9,'¿En qué posición quedó el Granada CF al final de la temporada 2013-2014?','',19,1,1,1)," +
-                    "(10,'¿En qué año consiguió el FC Barcelona el sextete?','',6,1,5,1)";
+                    //"(10,'¿En qué año consiguió el FC Barcelona el sextete?','',6,1,5,1)," +
+                    "(10,'¿Cuál es el actual escudo del Granada CF?','',27,1,9,3)," +
+                    "(11,'¿A qué corresponde el siguiente pitido en un partido de fútbol?','pitido',21,1,8,2)";
 
     public static final String INSERT_RESPUESTAS_SCRIPT =
             "INSERT INTO "+RESPUESTAS_TABLE_NAME+" VALUES" +
@@ -139,7 +141,18 @@ public class PYRDataSource {
                     "(17,'Tibaut Courtois','',7,1)," +
                     "(18,'Claudio Bravo','',7,1)," +
                     "(19,'15','',1,1)," +
-                    "(20,'Athletic de Bilbao','',2,1)";
+                    "(20,'Athletic de Bilbao','',2,1)," +
+                    "(21,'Final del partido','',8,2)," +
+                    "(22,'Inicio del partido','',8,2)," +
+                    "(23,'Gol','',8,2)," +
+                    "(24,'Saque de banda','',8,2)," +
+                    "(25,'Saque de esquina','',8,2)," +
+                    "(26,'Falta','',8,2)," +
+                    "(27,'Granada CF 2012','g2012',9,3)," +
+                    "(28,'Granada CF 2009','g2009',9,3)," +
+                    "(29,'Granada CF 1980','g1980',9,3)," +
+                    "(30,'Granada CF 1970','g1970',9,3)";
+
 
     public static final String INSERT_CATEGORIAS_SCRIPT =
             "INSERT INTO "+CATEGORIAS_TABLE_NAME+" VALUES" +
@@ -153,7 +166,9 @@ public class PYRDataSource {
                     "(4, 'mes'), " +
                     "(5, 'año'), " +
                     "(6, 'jugador'), " +
-                    "(7, 'portero')";
+                    "(7, 'portero'), " +
+                    "(8, 'pitido'), " +
+                    "(9, 'escudo')";
 
     public static final String INSERT_CLASES_SCRIPT =
             "INSERT INTO "+CLASES_TABLE_NAME+" VALUES" +
@@ -196,7 +211,7 @@ public class PYRDataSource {
             String d_p = c.getString(c.getColumnIndex(ColumnPreguntas.DESCRIPCION_PREGUNTAS));
             String id_r = c.getString(c.getColumnIndex(ColumnPreguntas.ID_RESPUESTA));
             //Respuesta correcta para la pregunta
-            String columns_r[] = new String[]{ColumnRespuestas.CONTENIDO_RESPUESTAS, ColumnRespuestas.CLASE_RESPUESTAS,
+            String columns_r[] = new String[]{ColumnRespuestas.ID_RESPUESTAS, ColumnRespuestas.CONTENIDO_RESPUESTAS, ColumnRespuestas.CLASE_RESPUESTAS,
                     ColumnRespuestas.DESCRIPCION_RESPUESTAS, ColumnRespuestas.TIPO_RESPUESTAS};
             String selection_r = ColumnRespuestas.ID_RESPUESTAS + " = ? ";//WHERE id_respuesta = ?
             String selectionArgs_r[] = new String[]{id_r};
@@ -216,13 +231,13 @@ public class PYRDataSource {
             }
             if(c_resp.moveToNext()){
                 String c_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS));
-                String d_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.DESCRIPCION_RESPUESTAS));
+                String desc_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.DESCRIPCION_RESPUESTAS));
                 if (clase.matches("texto"))
                     preguntas.add(new PreguntaTexto(c_p, new RespuestaTexto(c_r, id_r), 0, id_tipo));
                 else if (clase.matches("audio"))
-                    preguntas.add(new PreguntaAudio(c_p, new RespuestaAudio(c_r, d_r, id_r), Integer.valueOf(d_p), id_tipo));
+                    preguntas.add(new PreguntaAudio(c_p, new RespuestaAudio(c_r, desc_r, id_r), d_p, id_tipo));
                 else if (clase.matches("grafica"))
-                    preguntas.add(new PreguntaGrafica(c_p, new RespuestaGrafica(c_r, d_r, id_r), Integer.valueOf(d_p), id_tipo));
+                    preguntas.add(new PreguntaGrafica(c_p, new RespuestaGrafica(c_r, desc_r, id_r), d_p, id_tipo));
                 else {
                     System.out.println("Error en la clase de las respuestas");
                     return null;
@@ -357,7 +372,7 @@ public class PYRDataSource {
                         numerito = Integer.toString(randomNum);
                         break;
                     case 5://Año
-                        randomNum = rand.nextInt((20) + 1) + 1;
+                        randomNum = rand.nextInt((10) + 1) + 1;
                         numerito = Integer.toString(randomNum + valor-20);
                         if(Integer.valueOf(numerito) >= 2015)
                             numerito = resp;

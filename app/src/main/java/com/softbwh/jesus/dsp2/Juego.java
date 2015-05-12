@@ -3,14 +3,17 @@ package com.softbwh.jesus.dsp2;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,17 +63,16 @@ public class Juego extends Activity {
         enunciados = new ArrayList<>();
         enunciados = datos.obtenerEnunciados(categoriaJuego);
 
-
         //int a = R.drawable.esp;
         /****** CREAR EL TEST ******/
 
-        /*for(Enunciado e:enunciados){
+        for(Enunciado e:enunciados){
             System.out.println(e.getPreguntaEnunciado());
             System.out.println(e.getRespuestaCorrecta().getContenidoRespuesta());
             System.out.println(e.getRespuestas().get(0).getContenidoRespuesta());
             System.out.println(e.getRespuestas().get(1).getContenidoRespuesta());
             System.out.println(e.getRespuestas().get(2).getContenidoRespuesta());
-        }*/
+        }
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
         Enunciado e=enunciados.get(contador);
@@ -108,13 +110,15 @@ public class Juego extends Activity {
             botonA2.setEnabled(false);
         }else if(e instanceof EnunciadoGrafico) {
             tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
-            tvImagen.setBackgroundResource(0);
-            correctaI = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+            String ruta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+            System.out.println("Ruta de la imagen: " + ruta);
+            correctaI = getResources().getIdentifier(ruta, "drawable", getApplicationContext().getPackageName());
+            System.out.println("Ruta de la imagen: "+ruta+", id: "+correctaI);
             ArrayList<Integer> incorrectas = new ArrayList<>();
             incorrectas.add(correctaI);
-            incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
-            incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
-            incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
+            incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(0).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
+            incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(1).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
+            incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(2).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
             Collections.shuffle(incorrectas, new Random(System.nanoTime()));
             for(int i=0; i<incorrectas.size(); i++){
                 if(incorrectas.get(i) == correctaI)
@@ -152,13 +156,14 @@ public class Juego extends Activity {
             botonA2.setVisibility(View.VISIBLE);
             botonA2.setEnabled(true);
             botonA2.setText("Pause");
-            player = MediaPlayer.create(Juego.this, enunciados.get(contador).getPregunta().getDescripcion());
+            String audio = enunciados.get(contador).getPregunta().getDescripcion();
+            int ruta = getResources().getIdentifier(audio, "raw", getApplicationContext().getPackageName());
+            player = MediaPlayer.create(Juego.this, ruta);
 
             botonA1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     player.start();
-
                 }
             });
 
@@ -166,9 +171,7 @@ public class Juego extends Activity {
                 @Override
                 public void onClick(View v) {
                     player.pause();
-
                 }
-
             });
         }
 
@@ -207,29 +210,29 @@ public class Juego extends Activity {
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 contador++;
-                if(respuestaCorrecta==num){
+                if (respuestaCorrecta == num) {
                     /* sonido correcto */
-                    sonidito=MediaPlayer.create(Juego.this, R.raw.correcto);
+                    sonidito = MediaPlayer.create(Juego.this, R.raw.correcto);
                     sonidito.start();
                     aciertos++;
                     /* variable de aciertos++ */
-                }else{
-                    sonidito=MediaPlayer.create(Juego.this, R.raw.incorrect);
+                } else {
+                    sonidito = MediaPlayer.create(Juego.this, R.raw.incorrect);
                     sonidito.start();
                     /* sonido mal */
                 }
                 /*comprobamos si es la ultima pregunta */
-                if(nPreguntas==1){
+                if (nPreguntas == 1) {
                     /* ir a FinalJuego */
                     Intent i = new Intent(Juego.this, FinalJuego.class);
                     i.putExtra("aciertos", aciertos);
                     i.putExtra("preguntas", enunciados.size());
-                    i.putExtra("aciertosTotales", aciertosTotales+aciertos);
-                    i.putExtra("preguntasTotales", preguntasTotales+enunciados.size());
+                    i.putExtra("aciertosTotales", aciertosTotales + aciertos);
+                    i.putExtra("preguntasTotales", preguntasTotales + enunciados.size());
                     startActivity(i);
-                }else{
-                    Enunciado e=enunciados.get(contador);
-                    if(e instanceof EnunciadoTexto) {
+                } else {
+                    Enunciado e = enunciados.get(contador);
+                    if (e instanceof EnunciadoTexto) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
                         correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
@@ -239,9 +242,9 @@ public class Juego extends Activity {
                         incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(1));
                         incorrectas.add(enunciados.get(contador).getRespuestasEnunciados().get(2));
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-                        for(int i=0; i<incorrectas.size(); i++){
-                            if(incorrectas.get(i).matches(correcta))
-                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        for (int i = 0; i < incorrectas.size(); i++) {
+                            if (incorrectas.get(i).matches(correcta))
+                                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
@@ -249,9 +252,9 @@ public class Juego extends Activity {
                         boton4.setText(incorrectas.get(3));
 
                         System.out.println(e.getPreguntaEnunciado());
-                        for(String r:incorrectas) {
+                        for (String r : incorrectas) {
                             System.out.print(r);
-                            if(r.matches(correcta)){
+                            if (r.matches(correcta)) {
                                 System.out.print(" <--Correcta");
                             }
                             System.out.println("");
@@ -261,19 +264,22 @@ public class Juego extends Activity {
                         botonA1.setEnabled(false);
                         botonA2.setVisibility(View.INVISIBLE);
                         botonA2.setEnabled(false);
-                    }else if(e instanceof EnunciadoGrafico) {
+                    } else if (e instanceof EnunciadoGrafico) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
-                        correctaI = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+                        String ruta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
+                        System.out.println("Ruta de la imagen: "+ruta);
+                        correctaI = getResources().getIdentifier(ruta, "drawable", getApplicationContext().getPackageName());
+                        System.out.println("Ruta de la imagen: "+ruta+", id: "+correctaI);
                         ArrayList<Integer> incorrectas = new ArrayList<>();
                         incorrectas.add(correctaI);
-                        incorrectas.add(enunciados.get(contador).getRespuestas().get(0).getDescripcion());
-                        incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getDescripcion());
-                        incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getDescripcion());
+                        incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(0).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
+                        incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(1).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
+                        incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(2).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-                        for(int i=0; i<incorrectas.size(); i++){
-                            if(incorrectas.get(i) == correctaI)
-                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        for (int i = 0; i < incorrectas.size(); i++) {
+                            if (incorrectas.get(i) == correctaI)
+                                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         //int a=R.drawable.esp;
                         boton1.setBackgroundResource(incorrectas.get(0));
@@ -284,7 +290,7 @@ public class Juego extends Activity {
                         botonA1.setEnabled(false);
                         botonA2.setVisibility(View.INVISIBLE);
                         botonA2.setEnabled(false);
-                    }else if(e instanceof EnunciadoAudio){
+                    } else if (e instanceof EnunciadoAudio) {
                         tvPregunta.setText(enunciados.get(contador).getPreguntaEnunciado());
                         tvImagen.setBackgroundResource(0);
                         correcta = enunciados.get(contador).getRespuestaCorrecta().getContenidoRespuesta();
@@ -294,9 +300,9 @@ public class Juego extends Activity {
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getContenidoRespuesta());
                         incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getContenidoRespuesta());
                         Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-                        for(int i=0; i<incorrectas.size(); i++){
-                            if(incorrectas.get(i).matches(correcta))
-                                respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                        for (int i = 0; i < incorrectas.size(); i++) {
+                            if (incorrectas.get(i).matches(correcta))
+                                respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
@@ -306,7 +312,9 @@ public class Juego extends Activity {
                         botonA1.setEnabled(true);
                         botonA2.setVisibility(View.VISIBLE);
                         botonA2.setEnabled(true);
-                        player = MediaPlayer.create(Juego.this, enunciados.get(contador).getPregunta().getDescripcion());
+                        String audio = enunciados.get(contador).getPregunta().getDescripcion();;
+                        int ruta = getResources().getIdentifier(audio, "raw", getApplicationContext().getPackageName());
+                        player = MediaPlayer.create(Juego.this, ruta);
 
                         botonA1.setOnClickListener(new View.OnClickListener() {
                             @Override

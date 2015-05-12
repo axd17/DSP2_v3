@@ -5,9 +5,7 @@ package com.softbwh.jesus.dsp2;
  */
 public class RespuestaGrafica extends Respuesta {
 
-    private int rutaImagen;
     public RespuestaGrafica(String r, String ri, String id_r) {
-        super(r, id_r);
-        rutaImagen= Integer.valueOf(ri);
+        super(r, ri, id_r);
     }
 }

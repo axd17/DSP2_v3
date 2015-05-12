@@ -7,15 +7,13 @@ import java.util.ArrayList;
  */
 public class FabricaEnunciadoAudio extends FabricaEnunciado {
 
-
-    public Enunciado crearEnunciadoAudio(PreguntaAudio p, ArrayList<Respuesta> r) {
-        Enunciado e=new EnunciadoAudio(p,r);
-
-        return e;
+    public EnunciadoAudio crearEnunciadoAudio(){
+        return null;
     }
 
     @Override
     public Enunciado crearEnunciado(Pregunta p, ArrayList<Respuesta> r) {
-        return null;
+        Enunciado e=new EnunciadoAudio(p,r);
+        return e;
     }
 }

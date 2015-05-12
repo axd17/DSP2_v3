@@ -7,20 +7,23 @@ public abstract class Respuesta {
 
     private String respuesta;
     private String id;
-    private int descripcion;
+    private String descripcion;
 
-    public Respuesta(String r, String id_r){
+    public Respuesta(String r, String d, String id_r){
         respuesta=r;
         id = id_r;
+        descripcion = d;
     }
 
     public String getContenidoRespuesta(){
         return respuesta;
     }
+
     public String getIdRespuesta(){
         return id;
     }
-    public int getDescripcion(){
+
+    public String getDescripcion(){
         return descripcion;
     }
 }

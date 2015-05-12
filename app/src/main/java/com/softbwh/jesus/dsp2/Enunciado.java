@@ -26,8 +26,6 @@ public abstract class Enunciado {
         return pregunta;
     }
 
-
-
     public ArrayList<String> getRespuestasEnunciados(){
         ArrayList<String> ret=new ArrayList<String>(3);
         for (int i = 0; i <respuestas.size() ; i++) {

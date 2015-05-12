@@ -7,9 +7,8 @@ import java.util.ArrayList;
  */
 public class EnunciadoAudio extends Enunciado {
 
-
-
-    public EnunciadoAudio(PreguntaAudio p, ArrayList<Respuesta> r) {
+    public EnunciadoAudio(Pregunta p, ArrayList<Respuesta> r) {
         super(p, r);
     }
+
 }

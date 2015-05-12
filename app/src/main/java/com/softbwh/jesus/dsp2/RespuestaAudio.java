@@ -5,9 +5,7 @@ package com.softbwh.jesus.dsp2;
  */
 public class RespuestaAudio extends Respuesta {
 
-    String rutaAudio;
     public RespuestaAudio(String r, String ra, String id_r) {
-        super(r, id_r);
-        rutaAudio=ra;
+        super(r, ra, id_r);
     }
 }

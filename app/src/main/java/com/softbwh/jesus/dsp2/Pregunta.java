@@ -7,10 +7,10 @@ public abstract class Pregunta {
 
     private String contenido;
     private Respuesta respuesta;
-    private int descripcion;
+    private String descripcion;
     private String tipo;
 
-    public Pregunta(String p, Respuesta r, int des, String tip){
+    public Pregunta(String p, Respuesta r, String des, String tip){
         contenido=p;
         respuesta=r;
         descripcion=des;
@@ -24,16 +24,12 @@ public abstract class Pregunta {
     public Respuesta getRespuesta(){
         return respuesta;
     }
-    public int getDescripcionRespuesta(){
-        return respuesta.getDescripcion();
-    }
-
 
     public String getIdRespuesta(){
         return respuesta.getIdRespuesta();
     }
 
-    public int getDescripcion(){
+    public String getDescripcion(){
         return descripcion;
     }
 
