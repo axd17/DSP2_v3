@@ -177,10 +177,10 @@ public class Juego extends Activity {
         nPreguntas = 10; //numero de preguntas totales (soloc ambia al generar el test
         /* Poner una variable que diga cual es la respuesta correcta */
 
-        mostrarEnunciado(boton1);
-        mostrarEnunciado(boton2);
-        mostrarEnunciado(boton3);
-        mostrarEnunciado(boton4);
+        mostrarEnunciado(boton1, 1);
+        mostrarEnunciado(boton2, 2);
+        mostrarEnunciado(boton3, 3);
+        mostrarEnunciado(boton4, 4);
     }
 
 
@@ -203,11 +203,11 @@ public class Juego extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void mostrarEnunciado(Button boton){
+    public void mostrarEnunciado(Button boton, final int num){
         boton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 contador++;
-                if(respuestaCorrecta==1){
+                if(respuestaCorrecta==num){
                     /* sonido correcto */
                     sonidito=MediaPlayer.create(Juego.this, R.raw.correcto);
                     sonidito.start();
