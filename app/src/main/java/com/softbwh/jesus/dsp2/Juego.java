@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -66,13 +67,13 @@ public class Juego extends Activity {
         //int a = R.drawable.esp;
         /****** CREAR EL TEST ******/
 
-        for(Enunciado e:enunciados){
+        /*for(Enunciado e:enunciados){
             System.out.println(e.getPreguntaEnunciado());
             System.out.println(e.getRespuestaCorrecta().getContenidoRespuesta());
             System.out.println(e.getRespuestas().get(0).getContenidoRespuesta());
             System.out.println(e.getRespuestas().get(1).getContenidoRespuesta());
             System.out.println(e.getRespuestas().get(2).getContenidoRespuesta());
-        }
+        }*/
         /* Asignamos la primera pregunta con sus respuestas de manera random se deberia asignar */
         /* Hay que comprobar de que tipo es la pregunta (grafico, audio, texto) */
         Enunciado e=enunciados.get(contador);
@@ -90,6 +91,10 @@ public class Juego extends Activity {
                 if(incorrectas.get(i).matches(correcta))
                     respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
+            boton1.setBackgroundResource(R.drawable.blue1);
+            boton2.setBackgroundResource(R.drawable.blue1);
+            boton3.setBackgroundResource(R.drawable.blue1);
+            boton4.setBackgroundResource(R.drawable.blue1);
             boton1.setText(incorrectas.get(0));
             boton2.setText(incorrectas.get(1));
             boton3.setText(incorrectas.get(2));
@@ -113,7 +118,7 @@ public class Juego extends Activity {
             String ruta = enunciados.get(contador).getRespuestaCorrecta().getDescripcion();
             System.out.println("Ruta de la imagen: " + ruta);
             correctaI = getResources().getIdentifier(ruta, "drawable", getApplicationContext().getPackageName());
-            System.out.println("Ruta de la imagen: "+ruta+", id: "+correctaI);
+            System.out.println("Ruta de la imagen: " + ruta + ", id: " + correctaI);
             ArrayList<Integer> incorrectas = new ArrayList<>();
             incorrectas.add(correctaI);
             incorrectas.add(getResources().getIdentifier(enunciados.get(contador).getRespuestas().get(0).getDescripcion(), "drawable", getApplicationContext().getPackageName()));
@@ -128,6 +133,10 @@ public class Juego extends Activity {
             boton2.setBackgroundResource(incorrectas.get(1));
             boton3.setBackgroundResource(incorrectas.get(2));
             boton4.setBackgroundResource(incorrectas.get(3));
+            boton1.setText("");
+            boton2.setText("");
+            boton3.setText("");
+            boton4.setText("");
             botonA1.setVisibility(View.INVISIBLE);
             botonA1.setEnabled(false);
             botonA2.setVisibility(View.INVISIBLE);
@@ -142,10 +151,14 @@ public class Juego extends Activity {
             incorrectas.add(enunciados.get(contador).getRespuestas().get(1).getContenidoRespuesta());
             incorrectas.add(enunciados.get(contador).getRespuestas().get(2).getContenidoRespuesta());
             Collections.shuffle(incorrectas, new Random(System.nanoTime()));
-            for(int i=0; i<incorrectas.size(); i++){
+            for(int i=0; i<incorrectas.size(); i++) {
                 if(incorrectas.get(i).matches(correcta))
-                    respuestaCorrecta = i+1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
+                    respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
             }
+            boton1.setBackgroundResource(R.drawable.blue1);
+            boton2.setBackgroundResource(R.drawable.blue1);
+            boton3.setBackgroundResource(R.drawable.blue1);
+            boton4.setBackgroundResource(R.drawable.blue1);
             boton1.setText(incorrectas.get(0));
             boton2.setText(incorrectas.get(1));
             boton3.setText(incorrectas.get(2));
@@ -246,6 +259,10 @@ public class Juego extends Activity {
                             if (incorrectas.get(i).matches(correcta))
                                 respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
+                        boton1.setBackgroundResource(R.drawable.blue1);
+                        boton2.setBackgroundResource(R.drawable.blue1);
+                        boton3.setBackgroundResource(R.drawable.blue1);
+                        boton4.setBackgroundResource(R.drawable.blue1);
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
                         boton3.setText(incorrectas.get(2));
@@ -282,6 +299,10 @@ public class Juego extends Activity {
                                 respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
                         //int a=R.drawable.esp;
+                        boton1.setText("");
+                        boton2.setText("");
+                        boton3.setText("");
+                        boton4.setText("");
                         boton1.setBackgroundResource(incorrectas.get(0));
                         boton2.setBackgroundResource(incorrectas.get(1));
                         boton3.setBackgroundResource(incorrectas.get(2));
@@ -304,14 +325,20 @@ public class Juego extends Activity {
                             if (incorrectas.get(i).matches(correcta))
                                 respuestaCorrecta = i + 1;//numero del boton de la respuesta correcta (cambia en cada pregunta)*/
                         }
+                        boton1.setBackgroundResource(R.drawable.blue1);
+                        boton2.setBackgroundResource(R.drawable.blue1);
+                        boton3.setBackgroundResource(R.drawable.blue1);
+                        boton4.setBackgroundResource(R.drawable.blue1);
                         boton1.setText(incorrectas.get(0));
                         boton2.setText(incorrectas.get(1));
                         boton3.setText(incorrectas.get(2));
                         boton4.setText(incorrectas.get(3));
                         botonA1.setVisibility(View.VISIBLE);
                         botonA1.setEnabled(true);
+                        botonA1.setText("Play");
                         botonA2.setVisibility(View.VISIBLE);
                         botonA2.setEnabled(true);
+                        botonA2.setText("Pause");
                         String audio = enunciados.get(contador).getPregunta().getDescripcion();;
                         int ruta = getResources().getIdentifier(audio, "raw", getApplicationContext().getPackageName());
                         player = MediaPlayer.create(Juego.this, ruta);

@@ -63,34 +63,42 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
             android:text="Respuesta 1"
+            android:textColor="#ffffff"
             android:id="@+id/button"
+            android:layout_marginBottom="3dp"
             android:layout_gravity="center_horizontal"/>
             <!--android:layout_weight="0.07" />-->
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
             android:text="Respuesta 2"
+            android:textColor="#ffffff"
             android:id="@+id/button2"
+            android:layout_marginBottom="3dp"
             android:layout_gravity="center_horizontal"/>
             <!--android:layout_weight="0.07"--> />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
             android:text="Respuesta 3"
+            android:textColor="#ffffff"
             android:id="@+id/button3"
+            android:layout_marginBottom="3dp"
             android:layout_gravity="center_horizontal"/>
             <!--android:layout_weight="0.07"--> />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
             android:text="Respuesta 4"
-            android:id="@+id/button4"/>
+            android:textColor="#ffffff"
+            android:id="@+id/button4"
+            android:layout_gravity="center_horizontal"/>
             <!--android:layout_weight="0.07"--> />
     </LinearLayout>
 </RelativeLayout>

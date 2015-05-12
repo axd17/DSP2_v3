@@ -210,12 +210,6 @@ public class PYRDataSource {
             String c_p = c.getString(c.getColumnIndex(ColumnPreguntas.CONTENIDO_PREGUNTAS));
             String d_p = c.getString(c.getColumnIndex(ColumnPreguntas.DESCRIPCION_PREGUNTAS));
             String id_r = c.getString(c.getColumnIndex(ColumnPreguntas.ID_RESPUESTA));
-            //Respuesta correcta para la pregunta
-            String columns_r[] = new String[]{ColumnRespuestas.ID_RESPUESTAS, ColumnRespuestas.CONTENIDO_RESPUESTAS, ColumnRespuestas.CLASE_RESPUESTAS,
-                    ColumnRespuestas.DESCRIPCION_RESPUESTAS, ColumnRespuestas.TIPO_RESPUESTAS};
-            String selection_r = ColumnRespuestas.ID_RESPUESTAS + " = ? ";//WHERE id_respuesta = ?
-            String selectionArgs_r[] = new String[]{id_r};
-            Cursor c_resp = database.query(RESPUESTAS_TABLE_NAME, columns_r, selection_r, selectionArgs_r, null, null, null);
             //Sacamos el contenido de la clase
             String id_clase = c.getString(c.getColumnIndex(ColumnPreguntas.CLASE_PREGUNTAS));
             String clase="";
@@ -223,25 +217,31 @@ public class PYRDataSource {
             String selection_clas = ColumnClases.ID_CLASES + " = ? ";//WHERE id_clases = ?
             String selectionArgs_clas[] = new String[]{id_clase};
             Cursor c_clas = database.query(CLASES_TABLE_NAME, columns_clas, selection_clas, selectionArgs_clas, null, null, null);
-            if(c_clas.moveToNext())
+            if(c_clas.moveToNext()) {
                 clase = c_clas.getString(c_clas.getColumnIndex(ColumnClases.CONTENIDO_CLASES));
-            else{
-                System.out.println("No hay preguntas para la clase: "+clase);
-                return null;
-            }
-            if(c_resp.moveToNext()){
-                String c_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS));
-                String desc_r = c_resp.getString(c.getColumnIndex(ColumnRespuestas.DESCRIPCION_RESPUESTAS));
-                if (clase.matches("texto"))
-                    preguntas.add(new PreguntaTexto(c_p, new RespuestaTexto(c_r, id_r), 0, id_tipo));
-                else if (clase.matches("audio"))
-                    preguntas.add(new PreguntaAudio(c_p, new RespuestaAudio(c_r, desc_r, id_r), d_p, id_tipo));
-                else if (clase.matches("grafica"))
-                    preguntas.add(new PreguntaGrafica(c_p, new RespuestaGrafica(c_r, desc_r, id_r), d_p, id_tipo));
-                else {
-                    System.out.println("Error en la clase de las respuestas");
-                    return null;
+                //Respuesta correcta para la pregunta
+                String columns_r[] = new String[]{ColumnRespuestas.ID_RESPUESTAS, ColumnRespuestas.CONTENIDO_RESPUESTAS, ColumnRespuestas.DESCRIPCION_RESPUESTAS,
+                        ColumnRespuestas.TIPO_RESPUESTAS, ColumnRespuestas.CLASE_RESPUESTAS};
+                String selection_r = ColumnRespuestas.ID_RESPUESTAS + " = ? ";//WHERE id_respuesta = ?
+                String selectionArgs_r[] = new String[]{id_r};
+                Cursor c_resp = database.query(RESPUESTAS_TABLE_NAME, columns_r, selection_r, selectionArgs_r, null, null, null);
+                if (c_resp.moveToNext()) {
+                    String c_r = c_resp.getString(c_resp.getColumnIndex(ColumnRespuestas.CONTENIDO_RESPUESTAS));
+                    String desc_r = c_resp.getString(c_resp.getColumnIndex(ColumnRespuestas.DESCRIPCION_RESPUESTAS));
+                    if (clase.matches("texto"))
+                        preguntas.add(new PreguntaTexto(c_p, new RespuestaTexto(c_r, id_r), 0, id_tipo));
+                    else if (clase.matches("audio"))
+                        preguntas.add(new PreguntaAudio(c_p, new RespuestaAudio(c_r, desc_r, id_r), d_p, id_tipo));
+                    else if (clase.matches("grafica"))
+                        preguntas.add(new PreguntaGrafica(c_p, new RespuestaGrafica(c_r, desc_r, id_r), d_p, id_tipo));
+                    else {
+                        System.out.println("Error en la clase de las respuestas");
+                        return null;
+                    }
                 }
+            }else {
+                System.out.println("No hay preguntas para la clase: " + clase);
+                return null;
             }
         }
         return preguntas;
