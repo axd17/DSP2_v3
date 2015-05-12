@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-/**
- * Created by afmu on 4/5/15.
- */
+
 public class PYRDataSource {
 
     //Factorias de enunciados

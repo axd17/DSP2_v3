@@ -1,7 +1,11 @@
 package com.softbwh.jesus.dsp2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -36,6 +40,7 @@ public class Juego extends Activity {
     MediaPlayer sonidito;
     private int aciertosTotales=0;
     private int preguntasTotales=0;
+    //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
     //se necesitara aqui tener el test generado ya
 
     @Override
@@ -57,6 +62,15 @@ public class Juego extends Activity {
         boton4 = (Button) findViewById(R.id.button4);
         botonA1 = (Button) findViewById(R.id.buttonA1);
         botonA2 = (Button) findViewById(R.id.buttonA2);
+        /*AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("");
+        alertDialog.setMessage("Respuesta incorrecta ¿desea seguir con el test o ver la respuesta correcta y terminar el test?");
+        alertDialog.
+                setPositiveButton("Seguir test", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });*/
 
         /****** CREAR EL TEST ******/
 
@@ -232,6 +246,33 @@ public class Juego extends Activity {
                 } else {
                     sonidito = MediaPlayer.create(Juego.this, R.raw.incorrect);
                     sonidito.start();
+                    // set title
+                    /*alertDialogBuilder.setTitle("Your Title");
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage("Respuesta incorrecta ¿desea seguir con el test o ver la respuesta correcta y terminar el test?")
+                            .setCancelable(false)
+                            .setPositiveButton("Seguir test",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+                                    Juego.this.finish();
+                                }
+                            })
+                            .setNegativeButton("Ver respuesta",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // if this button is clicked, just close
+                                    // the dialog box and do nothing
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();*/
                     /* sonido mal */
                 }
                 /*comprobamos si es la ultima pregunta */

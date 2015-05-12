@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by afmu on 4/5/15.
- */
+
 public class PYRReaderDBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "PYR.db";

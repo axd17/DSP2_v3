@@ -2,9 +2,7 @@ package com.softbwh.jesus.dsp2;
 
 import java.util.ArrayList;
 
-/**
- * Created by jesus on 28/04/15.
- */
+
 public abstract class Enunciado {
     private Pregunta pregunta;
     private ArrayList<Respuesta> respuestas=new ArrayList<Respuesta>(3);
